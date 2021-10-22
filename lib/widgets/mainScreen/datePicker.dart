@@ -53,7 +53,6 @@ class _DatePickerState extends State<DatePicker> {
               splashRadius: 40,
               onPressed: () => _earlierDate()),
         )
-        //IconButton(icon: Icon(Icons.add), onPressed: () => _GoToSettings()),
       ],
     ));
   }

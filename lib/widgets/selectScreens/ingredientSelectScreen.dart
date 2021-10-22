@@ -26,7 +26,6 @@ class IngredientSelectState extends State<IngredientSelectScreen> {
       loaded = true;
     }
     return Scaffold(
-      //appBar: AppBar(),
       body: SelectScreen(
         "Wybierz składnik",
         <Widget>[

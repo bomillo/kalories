@@ -25,7 +25,6 @@ class IngredientChooseToEditState extends State<IngredientChooseToEditScreen> {
       loaded = true;
     }
     return Scaffold(
-      //appBar: AppBar(),
       body: SelectScreen(
         "Wybierz co chcesz edytować",
         <Widget>[

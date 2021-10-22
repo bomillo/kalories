@@ -27,7 +27,7 @@ class Meal {
   double amount;
 
   Meal.fromDish(this.dish, this.amount) {
-    // id = dish.id;
+    id = dish.id;
   }
 }
 

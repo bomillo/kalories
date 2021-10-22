@@ -12,11 +12,6 @@ class AddMealToListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListItem(
-        //width: 75,
-        //decoration: BoxDecoration(
-        // border: Border.symmetric(
-        //  horizontal: BorderSide(color: Color(0xFF222222)))),
-
         child: TextButton(
       child: Icon(Icons.add, color: Theme.of(context).accentColor, size: 40),
       onPressed: () => _changeScreen(context),

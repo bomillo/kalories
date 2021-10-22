@@ -21,7 +21,7 @@ class SelectScreen extends StatelessWidget {
                 child: Container(
                     padding: EdgeInsetsDirectional.only(start: 30.0),
                     child: Text(
-                      title, // "Wybierz co chcesz dodać",
+                      title,
                       textAlign: TextAlign.start,
                       style: TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
                     ))),

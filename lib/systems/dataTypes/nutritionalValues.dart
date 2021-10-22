@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 enum NutritionalValuesCategory { Calories, Carbohydrates, Fats, Proteins }
 
 class NutritionalValues {
@@ -11,8 +9,6 @@ class NutritionalValues {
   double proteins = 0;
 
   operator +(NutritionalValues other) {
-    log("try add: ${other.toString()}");
-
     calories += other.calories;
     carbohydrates += other.carbohydrates;
     fats += other.fats;

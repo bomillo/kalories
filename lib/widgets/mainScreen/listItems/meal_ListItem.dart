@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:Kalories/systems/dataTypes/day.dart';
 import 'package:Kalories/systems/dataTypes/dish.dart';
@@ -22,7 +20,6 @@ class MealListItem extends StatefulWidget {
 }
 
 class MealListItemState extends State<MealListItem> {
-  // MealListItemState({Key key}) : super(key: key);
   bool loaded = false;
   Dish meal = Dish();
   NutritionalValues values = NutritionalValues();
@@ -167,7 +164,6 @@ class MealListItemState extends State<MealListItem> {
 
   void _remove() {
     //TODO delete from list
-    log("eh ${meal.id} ${meal.name} ${widget.day.id}");
     DatabaseManager.removeMealFromList(widget.index, meal.id, widget.day).then((a) {
       MainScreenState.main.update();
       widget.updateCallback();

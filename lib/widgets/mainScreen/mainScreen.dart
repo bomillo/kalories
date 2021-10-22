@@ -59,7 +59,6 @@ class MainScreenState extends State<MainScreen> {
     }
 
     return Scaffold(
-      //appBar: AppBar(),
       body: Stack(
         children: [
           Positioned(

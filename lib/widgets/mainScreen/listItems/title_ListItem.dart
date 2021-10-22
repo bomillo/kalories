@@ -16,7 +16,6 @@ class TitleListItem extends StatelessWidget {
           title,
           style: TextStyle(fontSize: 22, color: Theme.of(context).accentColor),
         ),
-        //left: 20,
       ),
     );
   }

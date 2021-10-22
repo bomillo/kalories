@@ -25,7 +25,6 @@ class IngredientRemoveState extends State<IngredientRemoveScreen> {
       loaded = true;
     }
     return Scaffold(
-      //appBar: AppBar(),
       body: SelectScreen(
         "Wybierz co chcesz usunąć",
         <Widget>[

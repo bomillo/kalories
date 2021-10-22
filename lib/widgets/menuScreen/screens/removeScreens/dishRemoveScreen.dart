@@ -27,7 +27,6 @@ class DishRemoveState extends State<DishRemoveScreen> {
       loaded = true;
     }
     return Scaffold(
-      //appBar: AppBar(),
       body: SelectScreen(
         "Wybierz co chcesz usunąć",
         <Widget>[
