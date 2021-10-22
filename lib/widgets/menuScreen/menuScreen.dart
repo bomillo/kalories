@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/systems/helpers/dishCreator.dart';
-import 'package:flutter_projects/widgets/common/listItem.dart';
-import 'package:flutter_projects/widgets/common/selectScreen.dart';
+import 'package:Kalories/systems/helpers/dishCreator.dart';
+import 'package:Kalories/widgets/common/listItem.dart';
+import 'package:Kalories/widgets/common/selectScreen.dart';
 
 class MenuScreen extends StatelessWidget {
   @override

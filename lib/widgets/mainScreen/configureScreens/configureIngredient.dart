@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_projects/systems/helpers/dishCreator.dart';
-import 'package:flutter_projects/widgets/common/inputField.dart';
+import 'package:Kalories/systems/helpers/dishCreator.dart';
+import 'package:Kalories/widgets/common/inputField.dart';
 
 // ignore: must_be_immutable
 class ConfigureIngredientScreen extends StatelessWidget {

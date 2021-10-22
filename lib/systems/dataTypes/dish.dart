@@ -1,4 +1,4 @@
-import 'package:flutter_projects/systems/dataTypes/ingredient.dart';
+import 'package:Kalories/systems/dataTypes/ingredient.dart';
 
 class Dish {
   Dish();

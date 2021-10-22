@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_projects/systems/dataTypes/settings.dart';
-import 'package:flutter_projects/widgets/common/inputField.dart';
+import 'package:Kalories/systems/dataTypes/settings.dart';
+import 'package:Kalories/widgets/common/inputField.dart';
+import 'package:Kalories/widgets/mainScreen/mainScreen.dart';
 
 class SettingsScreen extends StatelessWidget {
   final Settings newSettings = Settings.copy(Settings.current);
 
+  void _saveSettings() {
+    Settings.current = newSettings;
+    Settings.save();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.save),
+        onPressed: () {
+          _saveSettings();
+          MainScreenState.main.update();
+          _goBackToMainScreen(context);
+        },
+      ),
       body: Column(
         children: [
           Container(
@@ -33,9 +47,7 @@ class SettingsScreen extends StatelessWidget {
                   iconSize: 35,
                   splashRadius: 20,
                   onPressed: () {
-                    Settings.current = newSettings;
-                    Settings.save();
-                    _goToMainScreen(context);
+                    _goBackToMainScreen(context);
                   }),
             ],
           ),
@@ -64,7 +76,7 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 
-  void _goToMainScreen(BuildContext context) {
+  void _goBackToMainScreen(BuildContext context) {
     Navigator.pop(context);
   }
 }

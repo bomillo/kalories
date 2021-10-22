@@ -1,16 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:flutter_projects/systems/dataTypes/day.dart';
-import 'package:flutter_projects/systems/dataTypes/ingredient.dart';
-import 'package:flutter_projects/systems/dataTypes/dish.dart';
-import 'package:flutter_projects/systems/dataTypes/nutritionalValues.dart';
-import 'package:flutter_projects/systems/dataTypes/settings.dart';
-import 'package:flutter_projects/widgets/common/listItem.dart';
+import 'package:Kalories/systems/dataTypes/day.dart';
+import 'package:Kalories/systems/dataTypes/ingredient.dart';
+import 'package:Kalories/systems/dataTypes/dish.dart';
+import 'package:Kalories/systems/dataTypes/nutritionalValues.dart';
+import 'package:Kalories/systems/dataTypes/settings.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseManager {
-  static const _databaseFileName = 'kalorie_test.db';
+  static const _databaseFileName = 'kalories_test.db';
 
   static const _ingredientsDatabaseName = 'ingredients';
   static const _mealsDatabaseName = 'meals';
@@ -28,11 +27,7 @@ class DatabaseManager {
 
   static initializeDatabase() async {
     currentlyEditedDay = Day.getIdFor(DateTime.now());
-    _database = await openDatabase(_databaseFileName, version: 1, onCreate: _onCreate, onOpen: _onOpen);
-  }
-
-  static _onOpen(Database db) async {
-    _getSettings(db);
+    _database = await openDatabase(_databaseFileName, version: 1, onCreate: _onCreate, onOpen: _getSettings);
   }
 
   static _onCreate(Database db, int ver) async {
@@ -309,18 +304,6 @@ class DatabaseManager {
     ingredients.forEach((element) {
       batch
           .insert(_ingredientsInMealsDatabaseName, {"meal_id": maxId + 1, "ingredient_id": element.id, "amount": element.amount});
-    });
-    batch.commit(noResult: true);
-  }
-
-  static Future<void> _addDish(int id, Dish dish, List<IngredientListElement> ingredients) async {
-    Map<String, dynamic> mealData = dish.toMap();
-    mealData.putIfAbsent("id", () => id);
-
-    var batch = _database.batch();
-    batch.insert(_mealsDatabaseName, mealData);
-    ingredients.forEach((element) {
-      batch.insert(_ingredientsInMealsDatabaseName, {"meal_id": id, "ingredient_id": element.id, "amount": element.amount});
     });
     batch.commit(noResult: true);
   }

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/systems/dataTypes/day.dart';
-import 'package:flutter_projects/systems/dataTypes/dish.dart';
-import 'package:flutter_projects/systems/database/databaseManager.dart';
-import 'package:flutter_projects/widgets/MainScreen/listItems/addMealToListButton_ListItem.dart';
-import 'package:flutter_projects/widgets/MainScreen/listItems/meal_ListItem.dart';
-import 'package:flutter_projects/widgets/mainScreen/listItems/title_ListItem.dart';
+import 'package:Kalories/systems/dataTypes/day.dart';
+import 'package:Kalories/systems/dataTypes/dish.dart';
+import 'package:Kalories/systems/database/databaseManager.dart';
+import 'package:Kalories/widgets/MainScreen/listItems/addMealToListButton_ListItem.dart';
+import 'package:Kalories/widgets/MainScreen/listItems/meal_ListItem.dart';
+import 'package:Kalories/widgets/mainScreen/listItems/title_ListItem.dart';
 
 class MealList extends StatefulWidget {
   const MealList(this.index, this.day, this.title, {Key key}) : super(key: key);

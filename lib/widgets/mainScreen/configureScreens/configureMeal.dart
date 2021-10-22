@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_projects/systems/dataTypes/day.dart';
-import 'package:flutter_projects/systems/database/databaseManager.dart';
-import 'package:flutter_projects/widgets/common/inputField.dart';
-import 'package:flutter_projects/widgets/mainScreen/mainScreen.dart';
+import 'package:Kalories/systems/dataTypes/day.dart';
+import 'package:Kalories/systems/database/databaseManager.dart';
+import 'package:Kalories/widgets/common/inputField.dart';
+import 'package:Kalories/widgets/mainScreen/mainScreen.dart';
 
 // ignore: must_be_immutable
 class ConfigureMealScreen extends StatelessWidget {

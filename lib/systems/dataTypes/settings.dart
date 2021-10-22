@@ -1,23 +1,7 @@
-import 'package:flutter_projects/systems/database/databaseManager.dart';
+import 'package:Kalories/systems/database/databaseManager.dart';
 
 class Settings {
   static Settings current;
-
-  static var caloriesProgressBarSetMax;
-
-  static var carbohydratesProgressBarSetMax;
-
-  static var fatsProgressBarSetMax;
-
-  static var proteinsProgressBarSetMax;
-
-  static var caloriesProgressBarSetVal;
-
-  static var carbohydratesProgressBarSetVal;
-
-  static var fatsProgressBarSetVal;
-
-  static var proteinsProgressBarSetVal;
 
   Settings() {
     current = this;
@@ -57,14 +41,6 @@ class Settings {
   }
 
   static void save() {
-    updateBars();
     DatabaseManager.setSettings();
-  }
-
-  static void updateBars() {
-    caloriesProgressBarSetMax(current.caloriesTarget);
-    carbohydratesProgressBarSetMax(current.carbohydrateTarget);
-    fatsProgressBarSetMax(current.fatsTarget);
-    proteinsProgressBarSetMax(current.proteinsTarget);
   }
 }

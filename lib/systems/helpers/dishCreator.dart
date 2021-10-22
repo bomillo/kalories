@@ -1,6 +1,6 @@
-import 'package:flutter_projects/systems/dataTypes/ingredient.dart';
-import 'package:flutter_projects/systems/database/databaseManager.dart';
-import 'package:flutter_projects/widgets/menuScreen/screens/addScreens/addNewDishScreen.dart';
+import 'package:Kalories/systems/dataTypes/ingredient.dart';
+import 'package:Kalories/systems/database/databaseManager.dart';
+import 'package:Kalories/widgets/menuScreen/screens/addScreens/addNewDishScreen.dart';
 
 import '../dataTypes/dish.dart';
 
