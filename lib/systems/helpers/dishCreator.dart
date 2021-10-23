@@ -2,51 +2,37 @@ import 'package:Kalories/systems/dataTypes/ingredient.dart';
 import 'package:Kalories/systems/database/databaseManager.dart';
 import 'package:Kalories/widgets/menuScreen/screens/addScreens/addNewDishScreen.dart';
 
-import '../dataTypes/dish.dart';
+import '../dataTypes/meal.dart';
 
 class DishCreator {
-  static Dish dish;
-  static List<IngredientListElement> ingredients;
+  static Meal dish;
+  static Map<Ingredient, double> ingredients;
 
   static void beginNewMeal() {
-    dish = new Dish();
-    ingredients = List<IngredientListElement>.empty(growable: true);
+    dish = new Meal();
+    ingredients = Map<Ingredient, double>();
   }
 
-  static Future<void> loadFromDatabase(int dishId) async {
-    dish = await DatabaseManager.getDish(dishId);
-    ingredients = (await DatabaseManager.getIngredientsOfADish(dishId));
+  static Future<void> loadFromDatabase(int mealId) async {
+    dish = await DatabaseManager.getMeal(mealId);
+    ingredients = (await DatabaseManager.getIngredientsOfMeal(mealId));
   }
 
   static Future<void> updateInDatabase() async {
-    DatabaseManager.updateDish(dish, ingredients);
+    DatabaseManager.updateMeal(dish, ingredients);
   }
 
   static void addToDatabase() {
-    DatabaseManager.addDish(dish, ingredients);
+    DatabaseManager.addNewMeal(dish, ingredients);
   }
 
-  static IngredientListElement currentIngredient() {
-    if (ingredients.length != 0) {
-      return ingredients.last;
-    }
-    return null;
-  }
-
-  static void setIngredientAmount(amount) {
-    if (ingredients.length != 0) {
-      ingredients.last.amount = amount;
-      AddNewMealState.main.update();
-    }
-  }
-
-  static void addIngredient(Ingredient ingredient) {
+  static void addIngredient(Ingredient ingredient, double amount) {
     AddNewMealState.main.update();
-    ingredients.add(IngredientListElement.fromIngredient(ingredient, 0));
+    ingredients.putIfAbsent(ingredient, () => amount);
   }
 
   static void removeIngredient(Ingredient ingredient) {
     AddNewMealState.main.update();
-    ingredients.removeWhere((e) => ingredient.id == e.id);
+    ingredients.removeWhere((ing, _) => ingredient.id == ing.id);
   }
 }

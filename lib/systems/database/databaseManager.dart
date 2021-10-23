@@ -1,15 +1,15 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:Kalories/systems/dataTypes/day.dart';
 import 'package:Kalories/systems/dataTypes/ingredient.dart';
-import 'package:Kalories/systems/dataTypes/dish.dart';
+import 'package:Kalories/systems/dataTypes/meal.dart';
 import 'package:Kalories/systems/dataTypes/nutritionalValues.dart';
 import 'package:Kalories/systems/dataTypes/settings.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:tuple/tuple.dart';
 
 class DatabaseManager {
-  static const _databaseFileName = 'kalories_test.db';
+  static const _databaseFileName = 'kalories.db';
 
   static const _ingredientsDatabaseName = 'ingredients';
   static const _mealsDatabaseName = 'meals';
@@ -22,11 +22,7 @@ class DatabaseManager {
 
   static Database _database;
 
-  static int currentlyEditedMealList = 0;
-  static int currentlyEditedDay;
-
   static initializeDatabase() async {
-    currentlyEditedDay = Day.getIdFor(DateTime.now());
     _database = await openDatabase(_databaseFileName, version: 1, onCreate: _onCreate, onOpen: _getSettings);
   }
 
@@ -59,8 +55,8 @@ class DatabaseManager {
 
     batch.execute('''CREATE TABLE IF NOT EXISTS $_ingredientsInMealsDatabaseName (
            amount REAL NOT NULL,
-           meal_id INTEGER REFERENCES meals,
-           ingredient_id INTEGER REFERENCES ingredients
+           meal_id INTEGER REFERENCES $_mealsDatabaseName,
+           ingredient_id INTEGER REFERENCES $_ingredientsDatabaseName
         )''');
 
     batch.execute('''CREATE TABLE IF NOT EXISTS $_daysDatabaseName (
@@ -72,22 +68,22 @@ class DatabaseManager {
     batch.execute('''CREATE TABLE IF NOT EXISTS $_firstMealInDayDatabaseName (
            id INTEGER PRIMARY KEY,
            amount REAL NOT NULL,
-           meal_id INTEGER REFERENCES meals,
-           day_id INTEGER REFERENCES days
+           meal_id INTEGER REFERENCES $_mealsDatabaseName,
+           day_id INTEGER REFERENCES $_daysDatabaseName
         )''');
 
     batch.execute('''CREATE TABLE IF NOT EXISTS $_secondMealInDayDatabaseName (
            id INTEGER PRIMARY KEY,
            amount REAL NOT NULL,
-           meal_id INTEGER REFERENCES meals,
-           day_id INTEGER REFERENCES days
+           meal_id INTEGER REFERENCES $_mealsDatabaseName,
+           day_id INTEGER REFERENCES $_daysDatabaseName
         )''');
 
     batch.execute('''CREATE TABLE IF NOT EXISTS $_thirdMealInDayDatabaseName (
            id INTEGER PRIMARY KEY,
            amount REAL NOT NULL,
-           meal_id INTEGER REFERENCES meals,
-           day_id INTEGER REFERENCES days
+           meal_id INTEGER REFERENCES $_mealsDatabaseName,
+           day_id INTEGER REFERENCES $_daysDatabaseName
         )''');
     await batch.commit(noResult: true);
     _setSettings(db);
@@ -102,88 +98,70 @@ class DatabaseManager {
   }
 
   static Future<void> setSettings() async {
-    await _database.insert(_settingsDatabaseName, Settings.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
+    _setSettings(_database);
   }
 
-  static Future<List<Meal>> getMealInDay(int index, Day day) async {
-    String currentTable;
-    switch (index) {
+  static String _getMealInDayDatabaseName(int listIndex) {
+    switch (listIndex) {
       case 1:
-        currentTable = _firstMealInDayDatabaseName;
+        return _firstMealInDayDatabaseName;
         break;
       case 2:
-        currentTable = _secondMealInDayDatabaseName;
+        return _secondMealInDayDatabaseName;
         break;
       case 3:
-        currentTable = _thirdMealInDayDatabaseName;
+        return _thirdMealInDayDatabaseName;
         break;
       default:
-        return List.empty();
+        return "";
+    }
+  }
+
+  static Future<Map<Meal, double>> getMealsInDay(int listIndex, Day day) async {
+    String currentTable = _getMealInDayDatabaseName(listIndex);
+    if (currentTable == "") {
+      return Map<Meal, double>();
     }
 
     var list = await _database.query(currentTable, where: "day_id = ${day.id}");
+
     if (list.length == 0) {
-      return List.empty();
-    }
-    List<Dish> meals = List.empty(growable: true);
-
-    var batch = _database.batch();
-    for (int i = 0; i < list.length; i++) {
-      await getDish(list[i]["meal_id"]).then((meal) => meals.add(meal));
+      return Map<Meal, double>();
     }
 
-    await batch.commit();
-    List<Meal> mealListElements = List.empty(growable: true);
+    Map<Meal, double> mealListElements = Map<Meal, double>();
 
     for (int i = 0; i < list.length; i++) {
-      mealListElements.add(Meal.fromDish(meals[i], list[i]["amount"]));
+      mealListElements.putIfAbsent(await getMeal(list[i]["meal_id"]), () => list[i]["amount"]);
     }
 
     return mealListElements;
   }
 
-  static Future<void> addMealToList(int id, Day day, double amount) async {
-    String currentTable;
-
-    switch (currentlyEditedMealList) {
-      case 1:
-        currentTable = _firstMealInDayDatabaseName;
-        break;
-      case 2:
-        currentTable = _secondMealInDayDatabaseName;
-        break;
-      case 3:
-        currentTable = _thirdMealInDayDatabaseName;
-        break;
-      default:
-        return;
+  static Future<void> addMealInDay(int listIndex, Day day, Tuple2<Meal, double> meal) async {
+    String currentTable = _getMealInDayDatabaseName(listIndex);
+    if (currentTable == "") {
+      return;
     }
 
-    await _database.insert(currentTable, {"amount": amount, "meal_id": id, "day_id": day.id});
+    int maxId = (await _database.rawQuery("SELECT MAX(id) FROM $currentTable"))[0]["MAX(id)"];
+    if (maxId == null) {
+      maxId = 0;
+    }
+    await _database.insert(currentTable, {"id": maxId + 1, "amount": meal.item2, "meal_id": meal.item1.id, "day_id": day.id});
   }
 
-  static Future<void> removeMealFromList(int index, int id, Day day) async {
-    String currentTable;
-
-    switch (index) {
-      case 1:
-        currentTable = _firstMealInDayDatabaseName;
-        break;
-      case 2:
-        currentTable = _secondMealInDayDatabaseName;
-        break;
-      case 3:
-        currentTable = _thirdMealInDayDatabaseName;
-        break;
-      default:
-        return;
+  static Future<void> removeMealInDay(int listIndex, int id, Day day) async {
+    String currentTable = _getMealInDayDatabaseName(listIndex);
+    if (currentTable == "") {
+      return;
     }
 
-    await _database.delete(currentTable, where: "meal_id = $id AND day_id = ${day.id}");
+    await _database.delete(currentTable, where: "id = $id AND day_id = ${day.id}");
   }
 
   static Future<void> updateDay(Day day) async {
-    await _database.update(_daysDatabaseName, day.toMap(), where: "id = ${day.id}");
+    await _database.update(_daysDatabaseName, day.toMap(), where: "id = ${day.id}", conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   static Future<Day> getDay(int id) async {
@@ -204,7 +182,6 @@ class DatabaseManager {
     var list = await _database.query(_ingredientsDatabaseName, where: "id = $id");
 
     if (list.length == 0) {
-      log("Ingredient not found!");
       return Ingredient();
     }
 
@@ -251,29 +228,29 @@ class DatabaseManager {
     return NutritionalValues.fromMap(ingredient[0]);
   }
 
-  static Future<Dish> getDish(int id) async {
+  static Future<Meal> getMeal(int id) async {
     var list = await _database.query(_mealsDatabaseName, where: "id = $id");
 
     if (list.length == 0) {
-      log("Meal not found!");
-      return Dish();
+      return Meal();
     }
 
-    return Dish.fromMap(list[0]);
+    return Meal.fromMap(list[0]);
   }
 
-  static Future<List<IngredientListElement>> getIngredientsOfADish(int dishId) async {
-    var ingredientsIdsList = await _database.query(_ingredientsInMealsDatabaseName, where: "meal_id = $dishId");
+  static Future<Map<Ingredient, double>> getIngredientsOfMeal(int mealId) async {
+    var ingredientsIdsList = await _database.query(_ingredientsInMealsDatabaseName, where: "meal_id = $mealId");
 
-    var ingredientsList = List<IngredientListElement>.empty(growable: true);
+    // TODO: look at joining sql tables?
+    var ingredientsList = Map<Ingredient, double>();
     ingredientsIdsList.forEach((e) async {
-      ingredientsList.add(IngredientListElement.fromIngredient(await getIngredient(e["ingredient_id"]), e["amount"]));
+      ingredientsList.putIfAbsent(await getIngredient(e["ingredient_id"]), e["amount"]);
     });
 
     return ingredientsList;
   }
 
-  static Future<Map<int, String>> getAllDishesNames() async {
+  static Future<Map<int, String>> getAllMealsNames() async {
     var list = await _database.query(_mealsDatabaseName, columns: ["id", "name"]);
 
     var map = new Map<int, String>();
@@ -283,7 +260,7 @@ class DatabaseManager {
     return map;
   }
 
-  static Future<void> addDish(Dish dish, List<IngredientListElement> ingredients) async {
+  static Future<void> addNewMeal(Meal meal, Map<Ingredient, double> ingredients) async {
     if (ingredients.length == 0) {
       return;
     }
@@ -296,44 +273,43 @@ class DatabaseManager {
       maxId = 0;
     }
 
-    Map<String, dynamic> mealData = dish.toMap();
+    Map<String, dynamic> mealData = meal.toMap();
     mealData.putIfAbsent("id", () => maxId + 1);
 
     var batch = _database.batch();
     batch.insert(_mealsDatabaseName, mealData);
-    ingredients.forEach((element) {
-      batch
-          .insert(_ingredientsInMealsDatabaseName, {"meal_id": maxId + 1, "ingredient_id": element.id, "amount": element.amount});
+    ingredients.forEach((ingredient, amount) {
+      batch.insert(_ingredientsInMealsDatabaseName, {"meal_id": maxId + 1, "ingredient_id": ingredient.id, "amount": amount});
     });
     batch.commit(noResult: true);
   }
 
-  static Future<void> removeDish(int id) async {
+  static Future<void> removeMeal(int mealId) async {
     var batch = _database.batch();
 
-    batch.delete(_mealsDatabaseName, where: "id = $id");
-    batch.delete(_ingredientsInMealsDatabaseName, where: "meal_id = $id");
-    batch.delete(_firstMealInDayDatabaseName, where: "meal_id = $id");
-    batch.delete(_secondMealInDayDatabaseName, where: "meal_id = $id");
-    batch.delete(_thirdMealInDayDatabaseName, where: "meal_id = $id");
+    batch.delete(_mealsDatabaseName, where: "id = $mealId");
+    batch.delete(_ingredientsInMealsDatabaseName, where: "meal_id = $mealId");
+    batch.delete(_firstMealInDayDatabaseName, where: "meal_id = $mealId");
+    batch.delete(_secondMealInDayDatabaseName, where: "meal_id = $mealId");
+    batch.delete(_thirdMealInDayDatabaseName, where: "meal_id = $mealId");
 
     await batch.commit(noResult: true);
   }
 
-  static Future<void> updateDish(Dish dish, List<IngredientListElement> ingredients) async {
+  static Future<void> updateMeal(Meal meal, Map<Ingredient, double> ingredients) async {
     var batch = _database.batch();
 
-    batch.update(_mealsDatabaseName, dish.toMap(), where: "id = ${dish.id}");
-    batch.delete(_ingredientsInMealsDatabaseName, where: "meal_id = ${dish.id}");
-    ingredients.forEach((element) {
-      batch.insert(_ingredientsInMealsDatabaseName, {"meal_id": dish.id, "ingredient_id": element.id, "amount": element.amount});
+    batch.update(_mealsDatabaseName, meal.toMap(), where: "id = ${meal.id}");
+    batch.delete(_ingredientsInMealsDatabaseName, where: "meal_id = ${meal.id}");
+    ingredients.forEach((ingredient, amount) {
+      batch.insert(_ingredientsInMealsDatabaseName, {"meal_id": meal.id, "ingredient_id": ingredient.id, "amount": amount});
     });
 
     await batch.commit(noResult: true);
   }
 
-  static Future<NutritionalValues> getDishNutritionalValues(int id) async {
-    var ingredientsList = await _database.query(_ingredientsInMealsDatabaseName, where: "meal_id = $id");
+  static Future<NutritionalValues> getMealNutritionalValues(int mealId) async {
+    var ingredientsList = await _database.query(_ingredientsInMealsDatabaseName, where: "meal_id = $mealId");
 
     NutritionalValues values = new NutritionalValues();
 
@@ -343,16 +319,16 @@ class DatabaseManager {
     return values;
   }
 
-  static Future<NutritionalValues> getDayNutritionalValues(int id) async {
-    var ingredientsList = new List.empty(growable: true)
-      ..addAll(await _database.query(_firstMealInDayDatabaseName, where: "day_id = $id"))
-      ..addAll(await _database.query(_secondMealInDayDatabaseName, where: "day_id = $id"))
-      ..addAll(await _database.query(_thirdMealInDayDatabaseName, where: "day_id = $id"));
+  static Future<NutritionalValues> getDayNutritionalValues(int dayId) async {
+    var mealsList = new List.empty(growable: true)
+      ..addAll(await _database.query(_firstMealInDayDatabaseName, where: "day_id = $dayId"))
+      ..addAll(await _database.query(_secondMealInDayDatabaseName, where: "day_id = $dayId"))
+      ..addAll(await _database.query(_thirdMealInDayDatabaseName, where: "day_id = $dayId"));
 
     NutritionalValues values = new NutritionalValues();
 
-    for (int i = 0; i < ingredientsList.length; i++) {
-      values += await getDishNutritionalValues(ingredientsList[i]["meal_id"]) * ingredientsList[i]["amount"];
+    for (int i = 0; i < mealsList.length; i++) {
+      values += await getMealNutritionalValues(mealsList[i]["meal_id"]) * mealsList[i]["amount"];
     }
     return values;
   }
