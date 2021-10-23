@@ -6,6 +6,7 @@ import 'package:kalories/systems/database/databaseManager.dart';
 import 'package:kalories/widgets/MainScreen/listItems/addMealToListButton_ListItem.dart';
 import 'package:kalories/widgets/MainScreen/listItems/meal_ListItem.dart';
 import 'package:kalories/widgets/mainScreen/listItems/title_ListItem.dart';
+import 'package:tuple/tuple.dart';
 
 class MealList extends StatefulWidget {
   const MealList(this.index, this.day, this.title, {Key key}) : super(key: key);
@@ -23,7 +24,7 @@ class MealList extends StatefulWidget {
 class MealListState extends State<MealList> {
   int dayId;
 
-  Map<Meal, double> mealAmountMap = Map<Meal, double>();
+  Map<Meal, Tuple2<int, double>> mealAmountMap = Map<Meal, Tuple2<int, double>>();
 
   _update() {
     DatabaseManager.getMealsInDay(widget.index, widget.day).then((newList) {
@@ -49,7 +50,8 @@ class MealListState extends State<MealList> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: []
           ..add(TitleListItem(widget.title))
-          ..addAll(mealAmountMap.entries.map((e) => MealListItem(widget.day, e.key.id, widget.index, e.value, () => _update())))
+          ..addAll(mealAmountMap.entries
+              .map((e) => MealListItem(widget.day, e.value.item1, e.key.id, widget.index, e.value.item2, () => _update())))
           ..add(AddMealToListItem(widget.index, widget.day, () => _update())));
   }
 }

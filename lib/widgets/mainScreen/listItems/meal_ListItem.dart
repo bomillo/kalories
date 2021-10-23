@@ -7,11 +7,12 @@ import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/mainScreen/mainScreen.dart';
 
 class MealListItem extends StatefulWidget {
-  MealListItem(this.day, this.id, this.index, this.amount, this.updateCallback, {Key key}) : super(key: key);
+  MealListItem(this.day, this.idInList, this.mealId, this.index, this.amount, this.updateCallback, {Key key}) : super(key: key);
 
   final index;
   final Day day;
-  final id;
+  final idInList;
+  final mealId;
   final double amount;
   final updateCallback;
 
@@ -27,13 +28,13 @@ class MealListItemState extends State<MealListItem> {
   @override
   Widget build(BuildContext context) {
     if (!loaded) {
-      DatabaseManager.getMeal(widget.id).then((_meal) {
+      DatabaseManager.getMeal(widget.mealId).then((_meal) {
         setState(() {
           meal = _meal;
         });
       });
 
-      DatabaseManager.getMealNutritionalValues(widget.id).then((_values) {
+      DatabaseManager.getMealNutritionalValues(widget.mealId).then((_values) {
         setState(() {
           values = _values;
         });
@@ -163,8 +164,7 @@ class MealListItemState extends State<MealListItem> {
   }
 
   void _remove() {
-    //TODO delete from list
-    DatabaseManager.removeMealInDay(widget.index, meal.id, widget.day).then((a) {
+    DatabaseManager.removeMealInDay(widget.index, widget.idInList, widget.day).then((a) {
       MainScreenState.main.update();
       widget.updateCallback();
     });

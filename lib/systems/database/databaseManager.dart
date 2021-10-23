@@ -117,22 +117,22 @@ class DatabaseManager {
     }
   }
 
-  static Future<Map<Meal, double>> getMealsInDay(int listIndex, Day day) async {
+  static Future<Map<Meal, Tuple2<int, double>>> getMealsInDay(int listIndex, Day day) async {
     String currentTable = _getMealInDayDatabaseName(listIndex);
     if (currentTable == "") {
-      return Map<Meal, double>();
+      return Map<Meal, Tuple2<int, double>>();
     }
 
     var list = await _database.query(currentTable, where: "day_id = ${day.id}");
 
     if (list.length == 0) {
-      return Map<Meal, double>();
+      return Map<Meal, Tuple2<int, double>>();
     }
 
-    Map<Meal, double> mealListElements = Map<Meal, double>();
+    Map<Meal, Tuple2<int, double>> mealListElements = Map<Meal, Tuple2<int, double>>();
 
     for (int i = 0; i < list.length; i++) {
-      mealListElements.putIfAbsent(await getMeal(list[i]["meal_id"]), () => list[i]["amount"]);
+      mealListElements.putIfAbsent(await getMeal(list[i]["meal_id"]), () => Tuple2(list[i]["id"], list[i]["amount"]));
     }
 
     return mealListElements;
