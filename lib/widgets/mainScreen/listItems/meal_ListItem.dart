@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:Kalories/systems/dataTypes/day.dart';
-import 'package:Kalories/systems/dataTypes/meal.dart';
-import 'package:Kalories/systems/dataTypes/nutritionalValues.dart';
-import 'package:Kalories/systems/database/databaseManager.dart';
-import 'package:Kalories/widgets/common/listItem.dart';
-import 'package:Kalories/widgets/mainScreen/mainScreen.dart';
+import 'package:kalories/systems/dataTypes/day.dart';
+import 'package:kalories/systems/dataTypes/meal.dart';
+import 'package:kalories/systems/dataTypes/nutritionalValues.dart';
+import 'package:kalories/systems/database/databaseManager.dart';
+import 'package:kalories/widgets/common/listItem.dart';
+import 'package:kalories/widgets/mainScreen/mainScreen.dart';
 
 class MealListItem extends StatefulWidget {
   MealListItem(this.day, this.id, this.index, this.amount, this.updateCallback, {Key key}) : super(key: key);

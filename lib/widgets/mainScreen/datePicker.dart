@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:Kalories/systems/dataTypes/day.dart';
-import 'package:Kalories/widgets/mainScreen/mainScreen.dart';
+import 'package:kalories/systems/dataTypes/day.dart';
+import 'package:kalories/widgets/mainScreen/mainScreen.dart';
 
 class DatePicker extends StatefulWidget {
   DatePicker({Key key}) : super(key: key);

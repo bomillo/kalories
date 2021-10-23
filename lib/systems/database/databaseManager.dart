@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:Kalories/systems/dataTypes/day.dart';
-import 'package:Kalories/systems/dataTypes/ingredient.dart';
-import 'package:Kalories/systems/dataTypes/meal.dart';
-import 'package:Kalories/systems/dataTypes/nutritionalValues.dart';
-import 'package:Kalories/systems/dataTypes/settings.dart';
+import 'package:kalories/systems/dataTypes/day.dart';
+import 'package:kalories/systems/dataTypes/ingredient.dart';
+import 'package:kalories/systems/dataTypes/meal.dart';
+import 'package:kalories/systems/dataTypes/nutritionalValues.dart';
+import 'package:kalories/systems/dataTypes/settings.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:tuple/tuple.dart';
 

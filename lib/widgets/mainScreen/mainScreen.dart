@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:Kalories/systems/dataTypes/day.dart';
-import 'package:Kalories/systems/dataTypes/nutritionalValues.dart';
-import 'package:Kalories/systems/database/databaseManager.dart';
-import 'package:Kalories/widgets/MainScreen/progressBar.dart';
-import 'package:Kalories/widgets/MainScreen/topBar.dart';
-import 'package:Kalories/widgets/mainScreen/mealList.dart';
-import 'package:Kalories/widgets/mainScreen/waterAndPracticeButtons.dart';
+import 'package:kalories/systems/dataTypes/day.dart';
+import 'package:kalories/systems/dataTypes/nutritionalValues.dart';
+import 'package:kalories/systems/database/databaseManager.dart';
+import 'package:kalories/widgets/MainScreen/progressBar.dart';
+import 'package:kalories/widgets/MainScreen/topBar.dart';
+import 'package:kalories/widgets/mainScreen/mealList.dart';
+import 'package:kalories/widgets/mainScreen/waterAndPracticeButtons.dart';
 
 class MainScreen extends StatefulWidget {
   @override

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:Kalories/systems/helpers/dishCreator.dart';
-import 'package:Kalories/widgets/common/inputField.dart';
-import 'package:Kalories/widgets/common/listItem.dart';
-import 'package:Kalories/widgets/mainScreen/listItems/addIngredientToListButton_ListItem.dart';
+import 'package:kalories/systems/helpers/dishCreator.dart';
+import 'package:kalories/widgets/common/inputField.dart';
+import 'package:kalories/widgets/common/listItem.dart';
+import 'package:kalories/widgets/mainScreen/listItems/addIngredientToListButton_ListItem.dart';
 
 class AddNewDishScreen extends StatefulWidget {
   @override

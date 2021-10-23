@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:Kalories/systems/dataTypes/nutritionalValues.dart';
-import 'package:Kalories/systems/dataTypes/settings.dart';
+import 'package:kalories/systems/dataTypes/nutritionalValues.dart';
+import 'package:kalories/systems/dataTypes/settings.dart';
 
 class ProgressBar extends StatefulWidget {
   ProgressBar(this.values, {Key key, this.title, this.unit, this.color, this.category}) : super(key: key);

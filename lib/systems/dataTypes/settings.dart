@@ -1,4 +1,4 @@
-import 'package:Kalories/systems/database/databaseManager.dart';
+import 'package:kalories/systems/database/databaseManager.dart';
 
 class Settings {
   static Settings current;

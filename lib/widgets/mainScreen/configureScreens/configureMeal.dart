@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:Kalories/systems/dataTypes/day.dart';
-import 'package:Kalories/systems/database/databaseManager.dart';
-import 'package:Kalories/widgets/common/inputField.dart';
-import 'package:Kalories/widgets/mainScreen/mainScreen.dart';
+import 'package:kalories/systems/dataTypes/day.dart';
+import 'package:kalories/systems/database/databaseManager.dart';
+import 'package:kalories/widgets/common/inputField.dart';
+import 'package:kalories/widgets/mainScreen/mainScreen.dart';
 import 'package:tuple/tuple.dart';
 
 // ignore: must_be_immutable

@@ -1,6 +1,6 @@
-import 'package:Kalories/systems/dataTypes/ingredient.dart';
-import 'package:Kalories/systems/database/databaseManager.dart';
-import 'package:Kalories/widgets/menuScreen/screens/addScreens/addNewDishScreen.dart';
+import 'package:kalories/systems/dataTypes/ingredient.dart';
+import 'package:kalories/systems/database/databaseManager.dart';
+import 'package:kalories/widgets/menuScreen/screens/addScreens/addNewDishScreen.dart';
 
 import '../dataTypes/meal.dart';
 

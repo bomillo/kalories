@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:Kalories/systems/dataTypes/settings.dart';
-import 'package:Kalories/systems/database/databaseManager.dart';
-import 'package:Kalories/widgets/menuScreen/screens/addScreens/addNewIngredientScreen.dart';
-import 'package:Kalories/widgets/menuScreen/screens/addScreens/addNewDishScreen.dart';
-import 'package:Kalories/widgets/mainScreen/mainScreen.dart';
-import 'package:Kalories/widgets/menuScreen/menuScreen.dart';
-import 'package:Kalories/widgets/mainScreen/configureScreens/configureIngredient.dart';
-import 'package:Kalories/widgets/mainScreen/configureScreens/configureMeal.dart';
-import 'package:Kalories/widgets/menuScreen/screens/chooseToEditScreens/dishChooseToEditScreen.dart';
-import 'package:Kalories/widgets/menuScreen/screens/chooseToEditScreens/ingredientChooseToEditScreen.dart';
-import 'package:Kalories/widgets/menuScreen/screens/editScreens/dishEditScreen.dart';
-import 'package:Kalories/widgets/menuScreen/screens/editScreens/ingredientEditScreen.dart';
-import 'package:Kalories/widgets/menuScreen/screens/removeScreens/ingredientRemoveScreen.dart';
-import 'package:Kalories/widgets/selectScreens/ingredientSelectScreen.dart';
-import 'package:Kalories/widgets/menuScreen/screens/removeScreens/dishRemoveScreen.dart';
-import 'package:Kalories/widgets/selectScreens/dishSelectScreen.dart';
-import 'package:Kalories/widgets/settingsScreen/settingsScreen.dart';
+import 'package:kalories/systems/dataTypes/settings.dart';
+import 'package:kalories/systems/database/databaseManager.dart';
+import 'package:kalories/widgets/menuScreen/screens/addScreens/addNewIngredientScreen.dart';
+import 'package:kalories/widgets/menuScreen/screens/addScreens/addNewDishScreen.dart';
+import 'package:kalories/widgets/mainScreen/mainScreen.dart';
+import 'package:kalories/widgets/menuScreen/menuScreen.dart';
+import 'package:kalories/widgets/mainScreen/configureScreens/configureIngredient.dart';
+import 'package:kalories/widgets/mainScreen/configureScreens/configureMeal.dart';
+import 'package:kalories/widgets/menuScreen/screens/chooseToEditScreens/dishChooseToEditScreen.dart';
+import 'package:kalories/widgets/menuScreen/screens/chooseToEditScreens/ingredientChooseToEditScreen.dart';
+import 'package:kalories/widgets/menuScreen/screens/editScreens/dishEditScreen.dart';
+import 'package:kalories/widgets/menuScreen/screens/editScreens/ingredientEditScreen.dart';
+import 'package:kalories/widgets/menuScreen/screens/removeScreens/ingredientRemoveScreen.dart';
+import 'package:kalories/widgets/selectScreens/ingredientSelectScreen.dart';
+import 'package:kalories/widgets/menuScreen/screens/removeScreens/dishRemoveScreen.dart';
+import 'package:kalories/widgets/selectScreens/dishSelectScreen.dart';
+import 'package:kalories/widgets/settingsScreen/settingsScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

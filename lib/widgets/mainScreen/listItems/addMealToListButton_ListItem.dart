@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:Kalories/systems/dataTypes/day.dart';
-import 'package:Kalories/widgets/common/listItem.dart';
-import 'package:Kalories/widgets/mainScreen/configureScreens/configureMeal.dart';
+import 'package:kalories/systems/dataTypes/day.dart';
+import 'package:kalories/widgets/common/listItem.dart';
+import 'package:kalories/widgets/mainScreen/configureScreens/configureMeal.dart';
 
 class AddMealToListItem extends StatelessWidget {
   AddMealToListItem(this.index, this.day, this.callback, {Key key}) : super(key: key);

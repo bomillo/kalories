@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:Kalories/widgets/common/listItem.dart';
+import 'package:kalories/widgets/common/listItem.dart';
 
 class AddIngredientToListItem extends StatelessWidget {
   AddIngredientToListItem({Key key}) : super(key: key);

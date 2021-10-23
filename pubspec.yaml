@@ -1,4 +1,4 @@
-name: Kalories
+name: kalories
 description: Simple app for counting nutritional values intake during the day.
 
 publish_to: 'none'

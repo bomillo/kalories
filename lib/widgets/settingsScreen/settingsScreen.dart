@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:Kalories/systems/dataTypes/settings.dart';
-import 'package:Kalories/widgets/common/inputField.dart';
-import 'package:Kalories/widgets/mainScreen/mainScreen.dart';
+import 'package:kalories/systems/dataTypes/settings.dart';
+import 'package:kalories/widgets/common/inputField.dart';
+import 'package:kalories/widgets/mainScreen/mainScreen.dart';
 
 class SettingsScreen extends StatelessWidget {
   final Settings newSettings = Settings.copy(Settings.current);

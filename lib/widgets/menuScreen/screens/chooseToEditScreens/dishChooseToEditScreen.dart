@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:Kalories/systems/database/databaseManager.dart';
-import 'package:Kalories/systems/helpers/dishCreator.dart';
-import 'package:Kalories/widgets/common/listItem.dart';
-import 'package:Kalories/widgets/common/selectScreen.dart';
+import 'package:kalories/systems/database/databaseManager.dart';
+import 'package:kalories/systems/helpers/dishCreator.dart';
+import 'package:kalories/widgets/common/listItem.dart';
+import 'package:kalories/widgets/common/selectScreen.dart';
 
 class DishChooseToEditScreen extends StatefulWidget {
   @override
