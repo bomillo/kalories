@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:Kalories/systems/dataTypes/day.dart';
-import 'package:Kalories/systems/database/databaseManager.dart';
 import 'package:Kalories/widgets/mainScreen/mainScreen.dart';
 
 class DatePicker extends StatefulWidget {
@@ -62,7 +61,7 @@ class _DatePickerState extends State<DatePicker> {
       setState(() {
         _currentDateOnDisplay = _currentDateOnDisplay.add(Duration(days: 1));
       });
-      DatabaseManager.currentlyEditedDay = Day.getIdFor(_currentDateOnDisplay);
+      MainScreenState.main.currentlyEditedDay = Day.getIdFor(_currentDateOnDisplay);
 
       MainScreenState.main.update();
     }
@@ -72,7 +71,7 @@ class _DatePickerState extends State<DatePicker> {
     setState(() {
       _currentDateOnDisplay = _currentDateOnDisplay.subtract(Duration(days: 1));
     });
-    DatabaseManager.currentlyEditedDay = Day.getIdFor(_currentDateOnDisplay);
+    MainScreenState.main.currentlyEditedDay = Day.getIdFor(_currentDateOnDisplay);
 
     MainScreenState.main.update();
   }

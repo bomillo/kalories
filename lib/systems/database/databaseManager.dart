@@ -138,7 +138,7 @@ class DatabaseManager {
     return mealListElements;
   }
 
-  static Future<void> addMealInDay(int listIndex, Day day, Tuple2<Meal, double> meal) async {
+  static Future<void> addMealInDay(int listIndex, Day day, Tuple2<int, double> meal) async {
     String currentTable = _getMealInDayDatabaseName(listIndex);
     if (currentTable == "") {
       return;
@@ -148,7 +148,7 @@ class DatabaseManager {
     if (maxId == null) {
       maxId = 0;
     }
-    await _database.insert(currentTable, {"id": maxId + 1, "amount": meal.item2, "meal_id": meal.item1.id, "day_id": day.id});
+    await _database.insert(currentTable, {"id": maxId + 1, "amount": meal.item2, "meal_id": meal.item1, "day_id": day.id});
   }
 
   static Future<void> removeMealInDay(int listIndex, int id, Day day) async {

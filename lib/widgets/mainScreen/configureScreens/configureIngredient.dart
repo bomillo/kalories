@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:Kalories/systems/helpers/dishCreator.dart';
 import 'package:Kalories/widgets/common/inputField.dart';
+import 'package:Kalories/systems/dataTypes/ingredient.dart';
 
 // ignore: must_be_immutable
 class ConfigureIngredientScreen extends StatelessWidget {
+  static Ingredient ingredient;
   double amount;
 
   @override
@@ -16,7 +18,7 @@ class ConfigureIngredientScreen extends StatelessWidget {
           if (amount == null || amount == 0) {
             _goBack(context);
           }
-          DishCreator.setIngredientAmount(amount);
+          DishCreator.addIngredient(ingredient, amount);
           _goBack(context);
         },
       ),
@@ -50,7 +52,7 @@ class ConfigureIngredientScreen extends StatelessWidget {
           ),
           InputField(FilteringTextInputFormatter.digitsOnly,
               title: "Ilość",
-              help: DishCreator.currentIngredient().ingredient.unit,
+              help: ingredient.unit,
               defaultValue: "${0}",
               fn: (String string) => amount = double.tryParse(string) ?? (0.0)),
         ],

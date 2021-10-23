@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:Kalories/systems/helpers/dishCreator.dart';
+import 'package:Kalories/widgets/mainScreen/configureScreens/configureIngredient.dart';
 import 'package:Kalories/systems/database/databaseManager.dart';
 import 'package:Kalories/widgets/common/listItem.dart';
 import 'package:Kalories/widgets/common/selectScreen.dart';
@@ -74,7 +74,7 @@ class IngredientSelectState extends State<IngredientSelectScreen> {
 
   void _goToAddIngredient(BuildContext context, int id) {
     DatabaseManager.getIngredient(id).then((ingredient) {
-      DishCreator.addIngredient(ingredient);
+      ConfigureIngredientScreen.ingredient = ingredient;
       Navigator.pushNamed(context, '/new/meal/ingredients/add');
     });
   }

@@ -10,26 +10,29 @@ import 'package:Kalories/widgets/mainScreen/waterAndPracticeButtons.dart';
 class MainScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    MainScreenState.main = MainScreenState();
+    MainScreenState();
     return MainScreenState.main;
   }
 }
 
 class MainScreenState extends State<MainScreen> {
   static MainScreenState main;
+  int currentlyEditedDay = Day.getIdFor(DateTime.now());
 
   MainScreenState() : super() {
     main = this;
+    currentlyEditedDay = Day.getIdFor(DateTime.now());
+    day = new Day(main.currentlyEditedDay, 0, false);
   }
 
   void update() {
-    DatabaseManager.getDay(DatabaseManager.currentlyEditedDay).then((newDay) {
+    DatabaseManager.getDay(main.currentlyEditedDay).then((newDay) {
       setState(() {
         day = newDay;
       });
     });
 
-    DatabaseManager.getDayNutritionalValues(DatabaseManager.currentlyEditedDay).then((newValues) {
+    DatabaseManager.getDayNutritionalValues(main.currentlyEditedDay).then((newValues) {
       setState(() {
         values = newValues;
       });
@@ -37,19 +40,19 @@ class MainScreenState extends State<MainScreen> {
   }
 
   bool loaded = false;
-  Day day = new Day(DatabaseManager.currentlyEditedDay, 0, false);
+  Day day; // = new Day(main.currentlyEditedDay, 0, false);
   NutritionalValues values = new NutritionalValues();
 
   @override
   Widget build(BuildContext context) {
     if (!loaded) {
-      DatabaseManager.getDay(DatabaseManager.currentlyEditedDay).then((newDay) {
+      DatabaseManager.getDay(currentlyEditedDay).then((newDay) {
         setState(() {
           day = newDay;
         });
       });
 
-      DatabaseManager.getDayNutritionalValues(DatabaseManager.currentlyEditedDay).then((newValues) {
+      DatabaseManager.getDayNutritionalValues(currentlyEditedDay).then((newValues) {
         setState(() {
           values = newValues;
         });

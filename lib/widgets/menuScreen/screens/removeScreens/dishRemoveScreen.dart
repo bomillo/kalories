@@ -19,7 +19,7 @@ class DishRemoveState extends State<DishRemoveScreen> {
   @override
   Widget build(BuildContext context) {
     if (!loaded) {
-      DatabaseManager.getAllDishesNames().then((map) {
+      DatabaseManager.getAllMealsNames().then((map) {
         setState(() {
           allMeals = map;
         });
@@ -75,7 +75,7 @@ class DishRemoveState extends State<DishRemoveScreen> {
 
   void _goToRemoveMeal(BuildContext context, int id) {
     log("deleting $id");
-    DatabaseManager.removeDish(id);
+    DatabaseManager.removeMeal(id);
     Navigator.pop(context);
   }
 }

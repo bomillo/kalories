@@ -72,7 +72,7 @@ class AddNewMealState extends State<AddNewDishScreen> {
               child: ListView(
             padding: EdgeInsetsDirectional.zero,
             children: <Widget>[]
-              ..addAll(DishCreator.ingredients
+              ..addAll(DishCreator.ingredients.entries
                   .map((e) => ListItem(
                           child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -81,20 +81,20 @@ class AddNewMealState extends State<AddNewDishScreen> {
                             Container(
                                 margin: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 10),
                                 child: Text(
-                                  "${e.ingredient.name}",
+                                  "${e.key.name}",
                                   style: TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
                                 )),
                             Container(
                                 margin: EdgeInsetsDirectional.fromSTEB(3, 10, 10, 10),
                                 child: Text(
-                                  "(${e.ingredient.unit})",
+                                  "(${e.key.unit})",
                                   style: TextStyle(fontSize: 20, color: Color(0xFFaaaaaa)),
                                 )),
                           ]),
                           Container(
                               margin: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                               child: Text(
-                                "${e.amount}",
+                                "${e.value}",
                                 style: TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
                               )),
                         ],

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:Kalories/systems/dataTypes/day.dart';
-import 'package:Kalories/systems/database/databaseManager.dart';
 import 'package:Kalories/widgets/common/listItem.dart';
 import 'package:Kalories/widgets/mainScreen/configureScreens/configureMeal.dart';
 
@@ -19,7 +18,7 @@ class AddMealToListItem extends StatelessWidget {
   }
 
   void _changeScreen(BuildContext context) {
-    DatabaseManager.currentlyEditedMealList = index;
+    ConfigureMealScreen.listIndex = index;
     ConfigureMealScreen.day = day;
     ConfigureMealScreen.callback = callback;
     Navigator.pushNamed(context, '/addMeal');

@@ -18,7 +18,7 @@ class DishChooseToEditState extends State<DishChooseToEditScreen> {
   @override
   Widget build(BuildContext context) {
     if (!loaded) {
-      DatabaseManager.getAllDishesNames().then((map) {
+      DatabaseManager.getAllMealsNames().then((map) {
         setState(() {
           allMeals = map;
         });

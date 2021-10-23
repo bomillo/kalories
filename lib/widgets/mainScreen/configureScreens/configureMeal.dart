@@ -4,11 +4,13 @@ import 'package:Kalories/systems/dataTypes/day.dart';
 import 'package:Kalories/systems/database/databaseManager.dart';
 import 'package:Kalories/widgets/common/inputField.dart';
 import 'package:Kalories/widgets/mainScreen/mainScreen.dart';
+import 'package:tuple/tuple.dart';
 
 // ignore: must_be_immutable
 class ConfigureMealScreen extends StatelessWidget {
   double amount;
   static int id;
+  static int listIndex;
   static Day day;
 
   static Function() callback;
@@ -22,7 +24,7 @@ class ConfigureMealScreen extends StatelessWidget {
           if (amount == null || amount == 0) {
             _goBack(context);
           }
-          DatabaseManager.addMealToList(id, day, amount).then((a) {
+          DatabaseManager.addMealInDay(listIndex, day, Tuple2(id, amount)).then((a) {
             callback();
             MainScreenState.main.update();
           });
