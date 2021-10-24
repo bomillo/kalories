@@ -4,14 +4,14 @@ import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/mainScreen/configureScreens/configureMeal.dart';
 import 'package:kalories/widgets/common/selectScreen.dart';
 
-class DishSelectScreen extends StatefulWidget {
+class MealSelectScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return DishSelectState();
+    return MealSelectState();
   }
 }
 
-class DishSelectState extends State<DishSelectScreen> {
+class MealSelectState extends State<MealSelectScreen> {
   bool loaded = false;
   Map<int, String> allMeals = new Map<int, String>();
 

@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:kalories/systems/dataTypes/settings.dart';
 import 'package:kalories/systems/database/databaseManager.dart';
 import 'package:kalories/widgets/menuScreen/screens/addScreens/addNewIngredientScreen.dart';
-import 'package:kalories/widgets/menuScreen/screens/addScreens/addNewDishScreen.dart';
+import 'package:kalories/widgets/menuScreen/screens/addScreens/addNewMealScreen.dart';
 import 'package:kalories/widgets/mainScreen/mainScreen.dart';
 import 'package:kalories/widgets/menuScreen/menuScreen.dart';
 import 'package:kalories/widgets/mainScreen/configureScreens/configureIngredient.dart';
 import 'package:kalories/widgets/mainScreen/configureScreens/configureMeal.dart';
-import 'package:kalories/widgets/menuScreen/screens/chooseToEditScreens/dishChooseToEditScreen.dart';
-import 'package:kalories/widgets/menuScreen/screens/editScreens/dishEditScreen.dart';
+import 'package:kalories/widgets/menuScreen/screens/chooseToEditScreens/mealChooseToEditScreen.dart';
+import 'package:kalories/widgets/menuScreen/screens/editScreens/mealEditScreen.dart';
 import 'package:kalories/widgets/menuScreen/screens/removeScreens/ingredientRemoveScreen.dart';
 import 'package:kalories/widgets/selectScreens/ingredientSelectScreen.dart';
-import 'package:kalories/widgets/menuScreen/screens/removeScreens/dishRemoveScreen.dart';
-import 'package:kalories/widgets/selectScreens/dishSelectScreen.dart';
+import 'package:kalories/widgets/menuScreen/screens/removeScreens/mealRemoveScreen.dart';
+import 'package:kalories/widgets/selectScreens/mealSelectScreen.dart';
 import 'package:kalories/widgets/settingsScreen/settingsScreen.dart';
 
 void main() async {
@@ -37,15 +37,15 @@ class Kalories extends StatelessWidget {
         '/': (context) => MainScreen(),
         '/settings': (context) => SettingsScreen(),
         '/new': (context) => MenuScreen(),
-        '/new/meal': (context) => AddNewDishScreen(),
-        '/new/rmeal': (context) => DishRemoveScreen(),
-        '/new/emeal': (context) => DishChooseToEditScreen(),
-        '/new/emeal/edit': (context) => DishEditScreen(),
+        '/new/meal': (context) => AddNewMealScreen(),
+        '/new/rmeal': (context) => MealRemoveScreen(),
+        '/new/emeal': (context) => MealChooseToEditScreen(),
+        '/new/emeal/edit': (context) => MealEditScreen(),
         '/new/ingredient': (context) => AddNewIngredientScreen(),
         '/new/ringredient': (context) => IngredientRemoveScreen(),
         '/new/meal/ingredients': (context) => IngredientSelectScreen(),
         '/new/meal/ingredients/add': (context) => ConfigureIngredientScreen(),
-        '/addMeal': (context) => DishSelectScreen(),
+        '/addMeal': (context) => MealSelectScreen(),
         '/addMeal/add': (context) => ConfigureMealScreen(),
       },
     );

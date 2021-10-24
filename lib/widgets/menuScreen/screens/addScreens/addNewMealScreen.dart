@@ -5,14 +5,14 @@ import 'package:kalories/widgets/common/inputField.dart';
 import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/mainScreen/listItems/addIngredientToListButton_ListItem.dart';
 
-class AddNewDishScreen extends StatefulWidget {
+class AddNewMealScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return AddNewMealState();
   }
 }
 
-class AddNewMealState extends State<AddNewDishScreen> {
+class AddNewMealState extends State<AddNewMealScreen> {
   AddNewMealState() : super() {
     MealHelper.beginNewMeal();
     MealHelper.callbackOnChange = update;

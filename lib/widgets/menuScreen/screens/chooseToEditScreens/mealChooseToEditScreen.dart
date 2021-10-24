@@ -4,14 +4,14 @@ import 'package:kalories/systems/helpers/mealHelper.dart';
 import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/common/selectScreen.dart';
 
-class DishChooseToEditScreen extends StatefulWidget {
+class MealChooseToEditScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return DishChooseToEditState();
+    return MealChooseToEditState();
   }
 }
 
-class DishChooseToEditState extends State<DishChooseToEditScreen> {
+class MealChooseToEditState extends State<MealChooseToEditScreen> {
   bool loaded = false;
   Map<int, String> allMeals = new Map<int, String>();
 
@@ -61,7 +61,7 @@ class DishChooseToEditState extends State<DishChooseToEditScreen> {
                             )),
                         TextButton(
                           child: Icon(Icons.edit, color: Theme.of(context).accentColor, size: 40),
-                          onPressed: () => _goToEditDish(context, e.key),
+                          onPressed: () => _goToEditMeal(context, e.key),
                         ),
                       ],
                     )))
@@ -72,7 +72,7 @@ class DishChooseToEditState extends State<DishChooseToEditScreen> {
     );
   }
 
-  void _goToEditDish(BuildContext context, int id) {
+  void _goToEditMeal(BuildContext context, int id) {
     MealHelper.loadFromDatabase(id).then((value) => Navigator.pushNamed(context, '/new/emeal/edit'));
   }
 }

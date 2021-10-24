@@ -6,15 +6,15 @@ import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/mainScreen/listItems/addIngredientToListButton_ListItem.dart';
 import 'package:kalories/widgets/mainScreen/mainScreen.dart';
 
-class DishEditScreen extends StatefulWidget {
+class MealEditScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return DishEditState();
+    return MealEditState();
   }
 }
 
-class DishEditState extends State<DishEditScreen> {
-  DishEditState() : super() {
+class MealEditState extends State<MealEditScreen> {
+  MealEditState() : super() {
     MealHelper.callbackOnChange = update;
   }
 

@@ -19,7 +19,7 @@ class MenuScreen extends StatelessWidget {
               ),
               onPressed: () {
                 MealHelper.beginNewMeal();
-                _goToAddDish(context);
+                _goToAddMeal(context);
               },
             ),
           ),
@@ -40,7 +40,7 @@ class MenuScreen extends StatelessWidget {
                 textAlign: TextAlign.start,
                 style: TextStyle(fontSize: 24, color: Theme.of(context).accentColor),
               ),
-              onPressed: () => _goToEditDish(context),
+              onPressed: () => _goToEditMeal(context),
             ),
           ),
           ListItem(
@@ -50,7 +50,7 @@ class MenuScreen extends StatelessWidget {
                 textAlign: TextAlign.start,
                 style: TextStyle(fontSize: 24, color: Theme.of(context).accentColor),
               ),
-              onPressed: () => _goToRemoveDish(context),
+              onPressed: () => _goToRemoveMeal(context),
             ),
           ),
           ListItem(
@@ -72,7 +72,7 @@ class MenuScreen extends StatelessWidget {
     Navigator.pushNamed(context, '/new/ingredient');
   }
 
-  void _goToAddDish(BuildContext context) {
+  void _goToAddMeal(BuildContext context) {
     Navigator.pushNamed(context, '/new/meal');
   }
 
@@ -80,11 +80,11 @@ class MenuScreen extends StatelessWidget {
     Navigator.pushNamed(context, '/new/ringredient');
   }
 
-  void _goToRemoveDish(BuildContext context) {
+  void _goToRemoveMeal(BuildContext context) {
     Navigator.pushNamed(context, '/new/rmeal');
   }
 
-  void _goToEditDish(BuildContext context) {
+  void _goToEditMeal(BuildContext context) {
     Navigator.pushNamed(context, '/new/emeal');
   }
 }
