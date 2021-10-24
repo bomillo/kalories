@@ -1,4 +1,4 @@
-package com.bomil.flutter_projects
+package com.bomil.kalories
 
 import io.flutter.embedding.android.FlutterActivity
 

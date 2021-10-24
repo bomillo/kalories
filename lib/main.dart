@@ -26,7 +26,7 @@ class Kalories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Kalories',
       theme: ThemeData(
         textTheme: Typography.whiteMountainView,
         scaffoldBackgroundColor: Color(0xFF000000),

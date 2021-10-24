@@ -1,9 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bomil.flutter_projects">
+    package="com.bomil.kalories">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
    <application
-        android:label="Kalorie"
+        android:label="Kalories"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
