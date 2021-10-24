@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kalories/systems/helpers/dishCreator.dart';
+import 'package:kalories/systems/helpers/mealHelper.dart';
 import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/common/selectScreen.dart';
 
@@ -18,7 +18,7 @@ class MenuScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 24, color: Theme.of(context).accentColor),
               ),
               onPressed: () {
-                DishCreator.beginNewMeal();
+                MealHelper.beginNewMeal();
                 _goToAddDish(context);
               },
             ),
@@ -41,16 +41,6 @@ class MenuScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 24, color: Theme.of(context).accentColor),
               ),
               onPressed: () => _goToEditDish(context),
-            ),
-          ),
-          ListItem(
-            child: TextButton(
-              child: Text(
-                "Edytuj składnik",
-                textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 24, color: Theme.of(context).accentColor),
-              ),
-              onPressed: () => _goToEditIngredient(context),
             ),
           ),
           ListItem(
@@ -92,10 +82,6 @@ class MenuScreen extends StatelessWidget {
 
   void _goToRemoveDish(BuildContext context) {
     Navigator.pushNamed(context, '/new/rmeal');
-  }
-
-  void _goToEditIngredient(BuildContext context) {
-    Navigator.pushNamed(context, '/new/eingredient');
   }
 
   void _goToEditDish(BuildContext context) {

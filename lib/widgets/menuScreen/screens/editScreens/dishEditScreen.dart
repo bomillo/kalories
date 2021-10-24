@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kalories/systems/helpers/dishCreator.dart';
+import 'package:kalories/systems/helpers/mealHelper.dart';
 import 'package:kalories/widgets/common/inputField.dart';
 import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/mainScreen/listItems/addIngredientToListButton_ListItem.dart';
+import 'package:kalories/widgets/mainScreen/mainScreen.dart';
 
 class DishEditScreen extends StatefulWidget {
   @override
@@ -13,6 +14,10 @@ class DishEditScreen extends StatefulWidget {
 }
 
 class DishEditState extends State<DishEditScreen> {
+  DishEditState() : super() {
+    MealHelper.callbackOnChange = update;
+  }
+
   void update() {
     setState(() {});
   }
@@ -21,9 +26,9 @@ class DishEditState extends State<DishEditScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: Icon(Icons.save),
         onPressed: () {
-          DishCreator.addToDatabase();
+          MealHelper.updateInDatabase().then((value) => MainScreenState.main.update());
           _goBack(context);
         },
       ),
@@ -58,16 +63,16 @@ class DishEditState extends State<DishEditScreen> {
             title: "Nazwa",
             help: "",
             width: 250.0,
-            defaultValue: DishCreator.dish.name,
-            fn: (String string) => DishCreator.dish.name = string,
+            defaultValue: MealHelper.meal.name,
+            fn: (String string) => MealHelper.meal.name = string,
           ),
           InputField(FilteringTextInputFormatter.singleLineFormatter,
-              title: "Jednostka", help: "", width: 250, defaultValue: DishCreator.dish.unit, fn: (string) => _setUnit(string)),
+              title: "Jednostka", help: "", width: 250, defaultValue: MealHelper.meal.unit, fn: (string) => _setUnit(string)),
           Expanded(
               child: ListView(
             padding: EdgeInsetsDirectional.zero,
             children: <Widget>[]
-              ..addAll(DishCreator.ingredients.entries
+              ..addAll(MealHelper.ingredients.entries
                   .map((e) => ListItem(
                           child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,7 +100,9 @@ class DishEditState extends State<DishEditScreen> {
                                 )),
                             IconButton(
                                 icon: Icon(Icons.delete, color: Theme.of(context).accentColor, size: 40),
-                                onPressed: () => DishCreator.removeIngredient(e.key)),
+                                onPressed: () {
+                                  MealHelper.removeIngredient(e.key);
+                                }),
                           ]),
                         ],
                       )))
@@ -108,7 +115,7 @@ class DishEditState extends State<DishEditScreen> {
   }
 
   void _setUnit(String string) {
-    DishCreator.dish.unit = string;
+    MealHelper.meal.unit = string;
   }
 
   void _goBack(BuildContext context) {

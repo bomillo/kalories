@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kalories/systems/database/databaseManager.dart';
-import 'package:kalories/systems/helpers/dishCreator.dart';
+import 'package:kalories/systems/helpers/mealHelper.dart';
 import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/common/selectScreen.dart';
 
@@ -73,6 +73,6 @@ class DishChooseToEditState extends State<DishChooseToEditScreen> {
   }
 
   void _goToEditDish(BuildContext context, int id) {
-    DishCreator.loadFromDatabase(id).then((value) => Navigator.pushNamed(context, '/new/emeal/edit'));
+    MealHelper.loadFromDatabase(id).then((value) => Navigator.pushNamed(context, '/new/emeal/edit'));
   }
 }

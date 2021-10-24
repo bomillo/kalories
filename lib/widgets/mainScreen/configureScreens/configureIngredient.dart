@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kalories/systems/helpers/dishCreator.dart';
+import 'package:kalories/systems/helpers/mealHelper.dart';
 import 'package:kalories/widgets/common/inputField.dart';
 import 'package:kalories/systems/dataTypes/ingredient.dart';
 
@@ -18,7 +18,7 @@ class ConfigureIngredientScreen extends StatelessWidget {
           if (amount == null || amount == 0) {
             _goBack(context);
           }
-          DishCreator.addIngredient(ingredient, amount);
+          MealHelper.addIngredient(ingredient, amount);
           _goBack(context);
         },
       ),

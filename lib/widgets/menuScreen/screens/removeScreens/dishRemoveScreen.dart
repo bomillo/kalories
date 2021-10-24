@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:kalories/systems/database/databaseManager.dart';
 import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/common/selectScreen.dart';
+import 'package:kalories/widgets/mainScreen/mainScreen.dart';
 
 class DishRemoveScreen extends StatefulWidget {
   @override
@@ -74,8 +73,7 @@ class DishRemoveState extends State<DishRemoveScreen> {
   }
 
   void _goToRemoveMeal(BuildContext context, int id) {
-    log("deleting $id");
-    DatabaseManager.removeMeal(id);
+    DatabaseManager.removeMeal(id).then((value) => MainScreenState.main.update());
     Navigator.pop(context);
   }
 }

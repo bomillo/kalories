@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kalories/systems/helpers/dishCreator.dart';
+import 'package:kalories/systems/helpers/mealHelper.dart';
 import 'package:kalories/widgets/common/inputField.dart';
 import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/mainScreen/listItems/addIngredientToListButton_ListItem.dart';
@@ -8,15 +8,14 @@ import 'package:kalories/widgets/mainScreen/listItems/addIngredientToListButton_
 class AddNewDishScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    AddNewMealState.main = AddNewMealState();
-    return AddNewMealState.main;
+    return AddNewMealState();
   }
 }
 
 class AddNewMealState extends State<AddNewDishScreen> {
-  static AddNewMealState main;
   AddNewMealState() : super() {
-    main = this;
+    MealHelper.beginNewMeal();
+    MealHelper.callbackOnChange = update;
   }
 
   void update() {
@@ -29,7 +28,7 @@ class AddNewMealState extends State<AddNewDishScreen> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          DishCreator.addToDatabase();
+          MealHelper.addToDatabase();
           _goBack(context);
         },
       ),
@@ -64,15 +63,20 @@ class AddNewMealState extends State<AddNewDishScreen> {
             title: "Nazwa",
             help: "",
             width: 250.0,
-            fn: (String string) => DishCreator.dish.name = string,
+            defaultValue: MealHelper.meal.name,
+            fn: (String string) => MealHelper.meal.name = string,
           ),
           InputField(FilteringTextInputFormatter.singleLineFormatter,
-              title: "Jednostka", help: "", width: 250, fn: (string) => _setUnit(string)),
+              title: "Jednostka",
+              help: "",
+              width: 250,
+              defaultValue: MealHelper.meal.unit,
+              fn: (string) => MealHelper.meal.unit = string),
           Expanded(
               child: ListView(
             padding: EdgeInsetsDirectional.zero,
             children: <Widget>[]
-              ..addAll(DishCreator.ingredients.entries
+              ..addAll(MealHelper.ingredients.entries
                   .map((e) => ListItem(
                           child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,10 +109,6 @@ class AddNewMealState extends State<AddNewDishScreen> {
         ],
       ),
     );
-  }
-
-  void _setUnit(String string) {
-    DishCreator.dish.unit = string;
   }
 
   void _goBack(BuildContext context) {

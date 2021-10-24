@@ -221,6 +221,10 @@ class DatabaseManager {
     await batch.commit(noResult: true);
   }
 
+  static Future<void> removeIngredientFromMeal(int mealId, int ingId) async {
+    _database.delete(_ingredientsInMealsDatabaseName, where: "ingredient_id = $ingId and meal_id = $mealId");
+  }
+
   static Future<NutritionalValues> getIngredientNutritionalValues(int id) async {
     var ingredient = await _database
         .query(_ingredientsDatabaseName, where: "id = $id", columns: ["calories", "carbohydrates", "fats", "proteins"]);
@@ -238,16 +242,20 @@ class DatabaseManager {
     return Meal.fromMap(list[0]);
   }
 
+  static Future<Map<Ingredient, double>> _getIngredientsOfMeal(List<Map<String, dynamic>> ids) async {
+    var ingredientsMap = Map<Ingredient, double>();
+    for (var i = 0; i < ids.length; i++) {
+      ingredientsMap.putIfAbsent(await getIngredient(ids[i]["ingredient_id"]), () => ids[i]["amount"]);
+    }
+    return ingredientsMap;
+  }
+
   static Future<Map<Ingredient, double>> getIngredientsOfMeal(int mealId) async {
     var ingredientsIdsList = await _database.query(_ingredientsInMealsDatabaseName, where: "meal_id = $mealId");
 
-    // TODO: look at joining sql tables?
-    var ingredientsList = Map<Ingredient, double>();
-    ingredientsIdsList.forEach((e) async {
-      ingredientsList.putIfAbsent(await getIngredient(e["ingredient_id"]), e["amount"]);
-    });
+    var ingredientsMap = await _getIngredientsOfMeal(ingredientsIdsList);
 
-    return ingredientsList;
+    return ingredientsMap;
   }
 
   static Future<Map<int, String>> getAllMealsNames() async {

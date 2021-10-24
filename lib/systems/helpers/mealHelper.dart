@@ -1,38 +1,39 @@
 import 'package:kalories/systems/dataTypes/ingredient.dart';
 import 'package:kalories/systems/database/databaseManager.dart';
-import 'package:kalories/widgets/menuScreen/screens/addScreens/addNewDishScreen.dart';
 
 import '../dataTypes/meal.dart';
 
-class DishCreator {
-  static Meal dish;
+class MealHelper {
+  static Meal meal;
   static Map<Ingredient, double> ingredients;
 
+  static Function() callbackOnChange;
+
   static void beginNewMeal() {
-    dish = new Meal();
+    meal = new Meal();
     ingredients = Map<Ingredient, double>();
   }
 
   static Future<void> loadFromDatabase(int mealId) async {
-    dish = await DatabaseManager.getMeal(mealId);
-    ingredients = (await DatabaseManager.getIngredientsOfMeal(mealId));
+    meal = await DatabaseManager.getMeal(mealId);
+    ingredients = await DatabaseManager.getIngredientsOfMeal(mealId);
   }
 
   static Future<void> updateInDatabase() async {
-    DatabaseManager.updateMeal(dish, ingredients);
+    await DatabaseManager.updateMeal(meal, ingredients);
   }
 
   static void addToDatabase() {
-    DatabaseManager.addNewMeal(dish, ingredients);
+    DatabaseManager.addNewMeal(meal, ingredients);
   }
 
   static void addIngredient(Ingredient ingredient, double amount) {
-    AddNewMealState.main.update();
+    callbackOnChange();
     ingredients.putIfAbsent(ingredient, () => amount);
   }
 
   static void removeIngredient(Ingredient ingredient) {
-    AddNewMealState.main.update();
+    callbackOnChange();
     ingredients.removeWhere((ing, _) => ingredient.id == ing.id);
   }
 }

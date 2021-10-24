@@ -8,9 +8,7 @@ import 'package:kalories/widgets/menuScreen/menuScreen.dart';
 import 'package:kalories/widgets/mainScreen/configureScreens/configureIngredient.dart';
 import 'package:kalories/widgets/mainScreen/configureScreens/configureMeal.dart';
 import 'package:kalories/widgets/menuScreen/screens/chooseToEditScreens/dishChooseToEditScreen.dart';
-import 'package:kalories/widgets/menuScreen/screens/chooseToEditScreens/ingredientChooseToEditScreen.dart';
 import 'package:kalories/widgets/menuScreen/screens/editScreens/dishEditScreen.dart';
-import 'package:kalories/widgets/menuScreen/screens/editScreens/ingredientEditScreen.dart';
 import 'package:kalories/widgets/menuScreen/screens/removeScreens/ingredientRemoveScreen.dart';
 import 'package:kalories/widgets/selectScreens/ingredientSelectScreen.dart';
 import 'package:kalories/widgets/menuScreen/screens/removeScreens/dishRemoveScreen.dart';
@@ -45,8 +43,6 @@ class Kalories extends StatelessWidget {
         '/new/emeal/edit': (context) => DishEditScreen(),
         '/new/ingredient': (context) => AddNewIngredientScreen(),
         '/new/ringredient': (context) => IngredientRemoveScreen(),
-        '/new/eingredient': (context) => IngredientChooseToEditScreen(),
-        '/new/eingredient/edit': (context) => IngredientEditScreen(),
         '/new/meal/ingredients': (context) => IngredientSelectScreen(),
         '/new/meal/ingredients/add': (context) => ConfigureIngredientScreen(),
         '/addMeal': (context) => DishSelectScreen(),
