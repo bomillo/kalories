@@ -72,7 +72,7 @@ class MealListItemState extends State<MealListItem> {
                 Positioned(
                   bottom: 10,
                   left: 10,
-                  width: 90,
+                  width: 60,
                   height: 23,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -92,8 +92,8 @@ class MealListItemState extends State<MealListItem> {
                 ),
                 Positioned(
                   bottom: 10,
-                  left: 110,
-                  width: 90,
+                  left: 90,
+                  width: 60,
                   height: 23,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -113,8 +113,8 @@ class MealListItemState extends State<MealListItem> {
                 ),
                 Positioned(
                   bottom: 10,
-                  left: 210,
-                  width: 90,
+                  left: 170,
+                  width: 60,
                   height: 23,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -134,8 +134,8 @@ class MealListItemState extends State<MealListItem> {
                 ),
                 Positioned(
                   bottom: 10,
-                  left: 310,
-                  width: 90,
+                  left: 250,
+                  width: 60,
                   height: 23,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
