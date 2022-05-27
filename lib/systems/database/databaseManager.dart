@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:kalories/systems/dataTypes/day.dart';
 import 'package:kalories/systems/dataTypes/ingredient.dart';
@@ -6,6 +7,7 @@ import 'package:kalories/systems/dataTypes/meal.dart';
 import 'package:kalories/systems/dataTypes/nutritionalValues.dart';
 import 'package:kalories/systems/dataTypes/settings.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:tuple/tuple.dart';
 
 class DatabaseManager {
@@ -23,7 +25,15 @@ class DatabaseManager {
   static Database _database;
 
   static initializeDatabase() async {
-    _database = await openDatabase(_databaseFileName, version: 1, onCreate: _onCreate, onOpen: _getSettings);
+    var dbOptions = OpenDatabaseOptions(version: 1, onCreate: _onCreate, onOpen: _getSettings);
+    DatabaseFactory choosenDatabaseFactory;
+    if (Platform.isWindows) {
+      sqfliteFfiInit();
+      choosenDatabaseFactory = databaseFactoryFfi;
+    } else if (Platform.isAndroid) {
+      choosenDatabaseFactory = databaseFactory;
+    }
+    _database = await choosenDatabaseFactory.openDatabase(_databaseFileName, options: dbOptions);
   }
 
   static _onCreate(Database db, int ver) async {
@@ -226,8 +236,7 @@ class DatabaseManager {
   }
 
   static Future<NutritionalValues> getIngredientNutritionalValues(int id) async {
-    var ingredient = await _database
-        .query(_ingredientsDatabaseName, where: "id = $id", columns: ["calories", "carbohydrates", "fats", "proteins"]);
+    var ingredient = await _database.query(_ingredientsDatabaseName, where: "id = $id", columns: ["calories", "carbohydrates", "fats", "proteins"]);
 
     return NutritionalValues.fromMap(ingredient[0]);
   }
