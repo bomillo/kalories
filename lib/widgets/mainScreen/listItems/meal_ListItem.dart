@@ -7,14 +7,14 @@ import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/mainScreen/mainScreen.dart';
 
 class MealListItem extends StatefulWidget {
-  MealListItem(this.day, this.idInList, this.mealId, this.index, this.amount, this.updateCallback, {Key key}) : super(key: key);
+  const MealListItem(this.day, this.idInList, this.mealId, this.index, this.amount, this.updateCallback, {Key key}) : super(key: key);
 
-  final index;
+  final int index;
   final Day day;
-  final idInList;
-  final mealId;
+  final int idInList;
+  final int mealId;
   final double amount;
-  final updateCallback;
+  final Function updateCallback;
 
   @override
   MealListItemState createState() => MealListItemState();
@@ -28,15 +28,15 @@ class MealListItemState extends State<MealListItem> {
   @override
   Widget build(BuildContext context) {
     if (!loaded) {
-      DatabaseManager.getMeal(widget.mealId).then((_meal) {
+      DatabaseManager.getMeal(widget.mealId).then((meal) {
         setState(() {
-          meal = _meal;
+          meal = meal;
         });
       });
 
-      DatabaseManager.getMealNutritionalValues(widget.mealId).then((_values) {
+      DatabaseManager.getMealNutritionalValues(widget.mealId).then((values) {
         setState(() {
-          values = _values;
+          values = values;
         });
       });
       loaded = true;
@@ -58,14 +58,14 @@ class MealListItemState extends State<MealListItem> {
                     children: [
                       Text(
                         meal.name,
-                        style: TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
+                        style: const TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
                       ),
                       Container(
+                          margin: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 3),
                           child: Text(
                             " ${widget.amount.toStringAsFixed(2)} ${meal.unit}",
-                            style: TextStyle(fontSize: 18, color: Color(0xFF767676)),
-                          ),
-                          margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 3))
+                            style: const TextStyle(fontSize: 18, color: Color(0xFF767676)),
+                          ))
                     ],
                   ),
                 ),
@@ -78,11 +78,11 @@ class MealListItemState extends State<MealListItem> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "${(widget.amount * values.calories).toStringAsFixed(0)}",
-                        style: TextStyle(fontSize: 20, color: Color(0xFFf5d41d)),
+                        (widget.amount * values.calories).toStringAsFixed(0),
+                        style: const TextStyle(fontSize: 20, color: Color(0xFFf5d41d)),
                         overflow: TextOverflow.fade,
                       ),
-                      Text(
+                      const Text(
                         " kcal",
                         style: TextStyle(fontSize: 14, color: Color(0xff757576)),
                         overflow: TextOverflow.fade,
@@ -99,11 +99,11 @@ class MealListItemState extends State<MealListItem> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "${(widget.amount * values.carbohydrates).toStringAsFixed(0)}",
-                        style: TextStyle(fontSize: 20, color: Color(0xFF34c943)),
+                        (widget.amount * values.carbohydrates).toStringAsFixed(0),
+                        style: const TextStyle(fontSize: 20, color: Color(0xFF34c943)),
                         overflow: TextOverflow.fade,
                       ),
-                      Text(
+                      const Text(
                         " gram",
                         style: TextStyle(fontSize: 14, color: Color(0xff757576)),
                         overflow: TextOverflow.fade,
@@ -120,11 +120,11 @@ class MealListItemState extends State<MealListItem> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "${(widget.amount * values.proteins).toStringAsFixed(0)}",
-                        style: TextStyle(fontSize: 20, color: Color(0xFFf7f7f7)),
+                        (widget.amount * values.proteins).toStringAsFixed(0),
+                        style: const TextStyle(fontSize: 20, color: Color(0xFFf7f7f7)),
                         overflow: TextOverflow.fade,
                       ),
-                      Text(
+                      const Text(
                         " gram",
                         style: TextStyle(fontSize: 14, color: Color(0xff757576)),
                         overflow: TextOverflow.fade,
@@ -141,11 +141,11 @@ class MealListItemState extends State<MealListItem> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        "${(widget.amount * values.fats).toStringAsFixed(0)}",
-                        style: TextStyle(fontSize: 20, color: Color(0xFFed4f24)),
+                        (widget.amount * values.fats).toStringAsFixed(0),
+                        style: const TextStyle(fontSize: 20, color: Color(0xFFed4f24)),
                         overflow: TextOverflow.fade,
                       ),
-                      Text(
+                      const Text(
                         " gram",
                         style: TextStyle(fontSize: 14, color: Color(0xff757576)),
                         overflow: TextOverflow.fade,
@@ -156,8 +156,7 @@ class MealListItemState extends State<MealListItem> {
               ],
             ),
           ),
-          IconButton(
-              icon: Icon(Icons.delete), color: Color(0xFF101010), splashRadius: 0.1, iconSize: 40, onPressed: () => _remove())
+          IconButton(icon: const Icon(Icons.delete), color: const Color(0xFF101010), splashRadius: 0.1, iconSize: 40, onPressed: () => _remove())
         ],
       ),
     );

@@ -7,11 +7,13 @@ import 'package:kalories/widgets/common/inputField.dart';
 class IngredientEditScreen extends StatelessWidget {
   final Ingredient newIng = Ingredient();
 
+  IngredientEditScreen({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           DatabaseManager.addIngredient(newIng);
           _goBack(context);
@@ -27,8 +29,8 @@ class IngredientEditScreen extends StatelessWidget {
             children: [
               Expanded(
                   child: Container(
-                      padding: EdgeInsetsDirectional.only(start: 30.0),
-                      child: Text(
+                      padding: const EdgeInsetsDirectional.only(start: 30.0),
+                      child: const Text(
                         "Dodaj nowy składnik",
                         textAlign: TextAlign.start,
                         style: TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
@@ -36,24 +38,19 @@ class IngredientEditScreen extends StatelessWidget {
               IconButton(
                   icon: Icon(
                     Icons.arrow_back,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   iconSize: 35,
                   splashRadius: 20,
                   onPressed: () => _goBack(context)),
             ],
           ),
-          InputField(FilteringTextInputFormatter.singleLineFormatter,
-              title: "Nazwa", help: "", width: 250, fn: (string) => _setName(string)),
-          InputField(FilteringTextInputFormatter.singleLineFormatter,
-              title: "Jednostka", help: "", width: 250, fn: (string) => _setUnit(string)),
+          InputField(FilteringTextInputFormatter.singleLineFormatter, title: "Nazwa", help: "", width: 250, fn: (string) => _setName(string)),
+          InputField(FilteringTextInputFormatter.singleLineFormatter, title: "Jednostka", help: "", width: 250, fn: (string) => _setUnit(string)),
           Container(height: 40),
-          InputField(FilteringTextInputFormatter.digitsOnly,
-              title: "Kalorie", help: "kcal", fn: (string) => _setCalories(string)),
-          InputField(FilteringTextInputFormatter.digitsOnly,
-              title: "Białeka", help: "gram", fn: (string) => _setProteins(string)),
-          InputField(FilteringTextInputFormatter.digitsOnly,
-              title: "Węglowodany", help: "gram", fn: (string) => _setCarbohydrates(string)),
+          InputField(FilteringTextInputFormatter.digitsOnly, title: "Kalorie", help: "kcal", fn: (string) => _setCalories(string)),
+          InputField(FilteringTextInputFormatter.digitsOnly, title: "Białeka", help: "gram", fn: (string) => _setProteins(string)),
+          InputField(FilteringTextInputFormatter.digitsOnly, title: "Węglowodany", help: "gram", fn: (string) => _setCarbohydrates(string)),
           InputField(FilteringTextInputFormatter.digitsOnly, title: "Tłuszcze", help: "gram", fn: (string) => _setFats(string)),
         ],
       ),

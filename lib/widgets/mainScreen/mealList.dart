@@ -24,7 +24,7 @@ class MealList extends StatefulWidget {
 class MealListState extends State<MealList> {
   int dayId;
 
-  Map<Meal, Tuple2<int, double>> mealAmountMap = Map<Meal, Tuple2<int, double>>();
+  Map<Meal, Tuple2<int, double>> mealAmountMap = <Meal, Tuple2<int, double>>{};
 
   _update() {
     DatabaseManager.getMealsInDay(widget.index, widget.day).then((newList) {
@@ -36,7 +36,7 @@ class MealListState extends State<MealList> {
   }
 
   @override
-  Widget build(buildContext) {
+  Widget build(context) {
     if (dayId != widget.day.id) {
       DatabaseManager.getMealsInDay(widget.index, widget.day).then((newList) {
         setState(() {
@@ -46,12 +46,10 @@ class MealListState extends State<MealList> {
       });
     }
 
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: []
-          ..add(TitleListItem(widget.title))
-          ..addAll(mealAmountMap.entries
-              .map((e) => MealListItem(widget.day, e.value.item1, e.key.id, widget.index, e.value.item2, () => _update())))
-          ..add(AddMealToListItem(widget.index, widget.day, () => _update())));
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      TitleListItem(widget.title),
+      ...mealAmountMap.entries.map((e) => MealListItem(widget.day, e.value.item1, e.key.id, widget.index, e.value.item2, () => _update())),
+      AddMealToListItem(widget.index, widget.day, () => _update())
+    ]);
   }
 }

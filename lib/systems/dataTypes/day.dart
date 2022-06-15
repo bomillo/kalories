@@ -3,17 +3,12 @@ class Day {
   int glassesOfWater;
   bool practice;
 
-  Day.empty(int id) {
-    this.id = id;
+  Day.empty(this.id) {
     glassesOfWater = 0;
     practice = false;
   }
 
-  Day(int id, int water, bool practice) {
-    this.id = id;
-    this.glassesOfWater = water;
-    this.practice = practice;
-  }
+  Day(this.id, this.glassesOfWater, this.practice);
 
   void increaseWaterCounter() {
     glassesOfWater++;

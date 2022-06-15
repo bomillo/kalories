@@ -10,8 +10,8 @@ class MealHelper {
   static Function() callbackOnChange;
 
   static void beginNewMeal() {
-    meal = new Meal();
-    ingredients = Map<Ingredient, double>();
+    meal = Meal();
+    ingredients = <Ingredient, double>{};
   }
 
   static Future<void> loadFromDatabase(int mealId) async {

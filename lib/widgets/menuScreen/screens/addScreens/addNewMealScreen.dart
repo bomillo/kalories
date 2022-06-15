@@ -6,6 +6,8 @@ import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/mainScreen/listItems/addIngredientToListButton_ListItem.dart';
 
 class AddNewMealScreen extends StatefulWidget {
+  const AddNewMealScreen({Key key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return AddNewMealState();
@@ -26,7 +28,7 @@ class AddNewMealState extends State<AddNewMealScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           MealHelper.addToDatabase();
           _goBack(context);
@@ -42,8 +44,8 @@ class AddNewMealState extends State<AddNewMealScreen> {
             children: [
               Expanded(
                   child: Container(
-                      padding: EdgeInsetsDirectional.only(start: 30.0),
-                      child: Text(
+                      padding: const EdgeInsetsDirectional.only(start: 30.0),
+                      child: const Text(
                         "Dodaj nowe danie",
                         textAlign: TextAlign.start,
                         style: TextStyle(fontSize: 30.0, color: Color(0xFFFFFFFF)),
@@ -51,7 +53,7 @@ class AddNewMealState extends State<AddNewMealScreen> {
               IconButton(
                   icon: Icon(
                     Icons.arrow_back,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   iconSize: 35.0,
                   splashRadius: 20.0,
@@ -67,44 +69,41 @@ class AddNewMealState extends State<AddNewMealScreen> {
             fn: (String string) => MealHelper.meal.name = string,
           ),
           InputField(FilteringTextInputFormatter.singleLineFormatter,
-              title: "Jednostka",
-              help: "",
-              width: 250,
-              defaultValue: MealHelper.meal.unit,
-              fn: (string) => MealHelper.meal.unit = string),
+              title: "Jednostka", help: "", width: 250, defaultValue: MealHelper.meal.unit, fn: (string) => MealHelper.meal.unit = string),
           Expanded(
               child: ListView(
             padding: EdgeInsetsDirectional.zero,
-            children: <Widget>[]
-              ..addAll(MealHelper.ingredients.entries
+            children: <Widget>[
+              ...MealHelper.ingredients.entries
                   .map((e) => ListItem(
                           child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                             Container(
-                                margin: EdgeInsetsDirectional.fromSTEB(10, 10, 0, 10),
+                                margin: const EdgeInsetsDirectional.fromSTEB(10, 10, 0, 10),
                                 child: Text(
-                                  "${e.key.name}",
-                                  style: TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
+                                  e.key.name,
+                                  style: const TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
                                 )),
                             Container(
-                                margin: EdgeInsetsDirectional.fromSTEB(3, 10, 10, 10),
+                                margin: const EdgeInsetsDirectional.fromSTEB(3, 10, 10, 10),
                                 child: Text(
                                   "(${e.key.unit})",
-                                  style: TextStyle(fontSize: 20, color: Color(0xFFaaaaaa)),
+                                  style: const TextStyle(fontSize: 20, color: Color(0xFFaaaaaa)),
                                 )),
                           ]),
                           Container(
-                              margin: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                              margin: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                               child: Text(
                                 "${e.value}",
-                                style: TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
+                                style: const TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
                               )),
                         ],
                       )))
-                  .toList())
-              ..add(AddIngredientToListItem()),
+                  .toList(),
+              const AddIngredientToListItem()
+            ],
           )),
         ],
       ),

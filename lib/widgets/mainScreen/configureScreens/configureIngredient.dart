@@ -9,11 +9,13 @@ class ConfigureIngredientScreen extends StatelessWidget {
   static Ingredient ingredient;
   double amount;
 
+  ConfigureIngredientScreen({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           if (amount == null || amount == 0) {
             _goBack(context);
@@ -32,8 +34,8 @@ class ConfigureIngredientScreen extends StatelessWidget {
             children: [
               Expanded(
                   child: Container(
-                      padding: EdgeInsetsDirectional.only(start: 30.0),
-                      child: Text(
+                      padding: const EdgeInsetsDirectional.only(start: 30.0),
+                      child: const Text(
                         "Ustawienia",
                         textAlign: TextAlign.start,
                         style: TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
@@ -41,7 +43,7 @@ class ConfigureIngredientScreen extends StatelessWidget {
               IconButton(
                   icon: Icon(
                     Icons.arrow_back,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   iconSize: 35,
                   splashRadius: 20,
@@ -51,10 +53,7 @@ class ConfigureIngredientScreen extends StatelessWidget {
             ],
           ),
           InputField(FilteringTextInputFormatter.digitsOnly,
-              title: "Ilość",
-              help: ingredient.unit,
-              defaultValue: "${0}",
-              fn: (String string) => amount = double.tryParse(string) ?? (0.0)),
+              title: "Ilość", help: ingredient.unit, defaultValue: "${0}", fn: (String string) => amount = double.tryParse(string) ?? (0.0)),
         ],
       ),
     );

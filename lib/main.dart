@@ -19,33 +19,35 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Settings();
   await DatabaseManager.initializeDatabase();
-  runApp(Kalories());
+  runApp(const Kalories());
 }
 
 class Kalories extends StatelessWidget {
+  const Kalories({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Kalories',
       theme: ThemeData(
         textTheme: Typography.whiteMountainView,
-        scaffoldBackgroundColor: Color(0xFF000000),
-        backgroundColor: Color(0xFF000000),
+        scaffoldBackgroundColor: const Color(0xFF000000),
+        backgroundColor: const Color(0xFF000000),
         primarySwatch: Colors.pink,
       ),
       routes: {
-        '/': (context) => MainScreen(),
+        '/': (context) => const MainScreen(),
         '/settings': (context) => SettingsScreen(),
-        '/new': (context) => MenuScreen(),
-        '/new/meal': (context) => AddNewMealScreen(),
-        '/new/rmeal': (context) => MealRemoveScreen(),
-        '/new/emeal': (context) => MealChooseToEditScreen(),
-        '/new/emeal/edit': (context) => MealEditScreen(),
+        '/new': (context) => const MenuScreen(),
+        '/new/meal': (context) => const AddNewMealScreen(),
+        '/new/rmeal': (context) => const MealRemoveScreen(),
+        '/new/emeal': (context) => const MealChooseToEditScreen(),
+        '/new/emeal/edit': (context) => const MealEditScreen(),
         '/new/ingredient': (context) => AddNewIngredientScreen(),
-        '/new/ringredient': (context) => IngredientRemoveScreen(),
-        '/new/meal/ingredients': (context) => IngredientSelectScreen(),
+        '/new/ringredient': (context) => const IngredientRemoveScreen(),
+        '/new/meal/ingredients': (context) => const IngredientSelectScreen(),
         '/new/meal/ingredients/add': (context) => ConfigureIngredientScreen(),
-        '/addMeal': (context) => MealSelectScreen(),
+        '/addMeal': (context) => const MealSelectScreen(),
         '/addMeal/add': (context) => ConfigureMealScreen(),
       },
     );

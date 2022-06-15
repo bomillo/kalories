@@ -4,6 +4,8 @@ import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/common/selectScreen.dart';
 
 class MenuScreen extends StatelessWidget {
+  const MenuScreen({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +17,7 @@ class MenuScreen extends StatelessWidget {
               child: Text(
                 "Nowe danie",
                 textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 24, color: Theme.of(context).accentColor),
+                style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.secondary),
               ),
               onPressed: () {
                 MealHelper.beginNewMeal();
@@ -28,7 +30,7 @@ class MenuScreen extends StatelessWidget {
               child: Text(
                 "Nowy składnik",
                 textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 24, color: Theme.of(context).accentColor),
+                style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.secondary),
               ),
               onPressed: () => _goToAddIngredient(context),
             ),
@@ -38,7 +40,7 @@ class MenuScreen extends StatelessWidget {
               child: Text(
                 "Edytuj danie",
                 textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 24, color: Theme.of(context).accentColor),
+                style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.secondary),
               ),
               onPressed: () => _goToEditMeal(context),
             ),
@@ -48,7 +50,7 @@ class MenuScreen extends StatelessWidget {
               child: Text(
                 "Usuń danie",
                 textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 24, color: Theme.of(context).accentColor),
+                style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.secondary),
               ),
               onPressed: () => _goToRemoveMeal(context),
             ),
@@ -58,7 +60,7 @@ class MenuScreen extends StatelessWidget {
               child: Text(
                 "Usuń składnik",
                 textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 24, color: Theme.of(context).accentColor),
+                style: TextStyle(fontSize: 24, color: Theme.of(context).colorScheme.secondary),
               ),
               onPressed: () => _goToRemoveIngredient(context),
             ),

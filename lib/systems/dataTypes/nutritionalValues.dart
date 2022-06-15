@@ -1,4 +1,4 @@
-enum NutritionalValuesCategory { Calories, Carbohydrates, Fats, Proteins }
+enum NutritionalValuesCategory { calories, carbohydrates, fats, proteins }
 
 class NutritionalValues {
   NutritionalValues();

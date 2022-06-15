@@ -3,16 +3,16 @@ import 'package:kalories/systems/dataTypes/day.dart';
 import 'package:kalories/widgets/mainScreen/mainScreen.dart';
 
 class DatePicker extends StatefulWidget {
-  DatePicker({Key key}) : super(key: key);
+  const DatePicker({Key key}) : super(key: key);
 
   @override
-  _DatePickerState createState() => _DatePickerState();
+  DatePickerState createState() => DatePickerState();
 }
 
-class _DatePickerState extends State<DatePicker> {
+class DatePickerState extends State<DatePicker> {
   DateTime _currentDateOnDisplay = DateTime.now();
 
-  _DatePickerState() : super() {
+  DatePickerState() : super() {
     _currentDateOnDisplay = DateTime.now();
   }
 
@@ -23,11 +23,11 @@ class _DatePickerState extends State<DatePicker> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           height: 100,
           width: 60,
           child: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_left,
                 color: Color(0xFF999999),
               ),
@@ -38,13 +38,13 @@ class _DatePickerState extends State<DatePicker> {
         Text(
           _convertDateToString(),
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 26, color: Color(0xFFFFFFFF)),
+          style: const TextStyle(fontSize: 26, color: Color(0xFFFFFFFF)),
         ),
-        Container(
+        SizedBox(
           height: 100,
           width: 60,
           child: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_right,
                 color: Color(0xFF999999),
               ),
@@ -57,9 +57,9 @@ class _DatePickerState extends State<DatePicker> {
   }
 
   void _earlierDate() {
-    if (!_currentDateOnDisplay.add(Duration(days: 1)).isAfter(DateTime.now())) {
+    if (!_currentDateOnDisplay.add(const Duration(days: 1)).isAfter(DateTime.now())) {
       setState(() {
-        _currentDateOnDisplay = _currentDateOnDisplay.add(Duration(days: 1));
+        _currentDateOnDisplay = _currentDateOnDisplay.add(const Duration(days: 1));
       });
       MainScreenState.main.currentlyEditedDay = Day.getIdFor(_currentDateOnDisplay);
 
@@ -69,7 +69,7 @@ class _DatePickerState extends State<DatePicker> {
 
   void _laterDate() {
     setState(() {
-      _currentDateOnDisplay = _currentDateOnDisplay.subtract(Duration(days: 1));
+      _currentDateOnDisplay = _currentDateOnDisplay.subtract(const Duration(days: 1));
     });
     MainScreenState.main.currentlyEditedDay = Day.getIdFor(_currentDateOnDisplay);
 
@@ -102,12 +102,7 @@ class _DatePickerState extends State<DatePicker> {
         break;
     }
 
-    string += ", " +
-        _currentDateOnDisplay.day.toString() +
-        "." +
-        _currentDateOnDisplay.month.toString() +
-        "." +
-        _currentDateOnDisplay.year.toString();
+    string += ", ${_currentDateOnDisplay.day}.${_currentDateOnDisplay.month}.${_currentDateOnDisplay.year}";
 
     return string;
   }

@@ -130,16 +130,16 @@ class DatabaseManager {
   static Future<Map<Meal, Tuple2<int, double>>> getMealsInDay(int listIndex, Day day) async {
     String currentTable = _getMealInDayDatabaseName(listIndex);
     if (currentTable == "") {
-      return Map<Meal, Tuple2<int, double>>();
+      return <Meal, Tuple2<int, double>>{};
     }
 
     var list = await _database.query(currentTable, where: "day_id = ${day.id}");
 
-    if (list.length == 0) {
-      return Map<Meal, Tuple2<int, double>>();
+    if (list.isEmpty) {
+      return <Meal, Tuple2<int, double>>{};
     }
 
-    Map<Meal, Tuple2<int, double>> mealListElements = Map<Meal, Tuple2<int, double>>();
+    Map<Meal, Tuple2<int, double>> mealListElements = <Meal, Tuple2<int, double>>{};
 
     for (int i = 0; i < list.length; i++) {
       mealListElements.putIfAbsent(await getMeal(list[i]["meal_id"]), () => Tuple2(list[i]["id"], list[i]["amount"]));
@@ -155,9 +155,7 @@ class DatabaseManager {
     }
 
     int maxId = (await _database.rawQuery("SELECT MAX(id) FROM $currentTable"))[0]["MAX(id)"];
-    if (maxId == null) {
-      maxId = 0;
-    }
+    maxId ??= 0;
     await _database.insert(currentTable, {"id": maxId + 1, "amount": meal.item2, "meal_id": meal.item1, "day_id": day.id});
   }
 
@@ -177,7 +175,7 @@ class DatabaseManager {
   static Future<Day> getDay(int id) async {
     var list = await _database.query(_daysDatabaseName, where: "id = $id", columns: ["glasses_of_water", "practice"]);
 
-    if (list.length == 0) {
+    if (list.isEmpty) {
       var day = Day.empty(id);
       await _database.insert(_daysDatabaseName, day.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
       return day;
@@ -191,7 +189,7 @@ class DatabaseManager {
   static Future<Ingredient> getIngredient(int id) async {
     var list = await _database.query(_ingredientsDatabaseName, where: "id = $id");
 
-    if (list.length == 0) {
+    if (list.isEmpty) {
       return Ingredient();
     }
 
@@ -201,9 +199,11 @@ class DatabaseManager {
   static Future<Map<int, String>> getAllIngredientsNames() async {
     var list = await _database.query(_ingredientsDatabaseName, columns: ["id", "name"]);
 
-    var map = new Map<int, String>();
+    var map = <int, String>{};
 
-    list.forEach((e) => map.putIfAbsent(e["id"] as int, () => e["name"]));
+    for (var e in list) {
+      map.putIfAbsent(e["id"] as int, () => e["name"]);
+    }
 
     return map;
   }
@@ -213,9 +213,7 @@ class DatabaseManager {
 
     maxId = (await _database.rawQuery("SELECT MAX(id) FROM $_ingredientsDatabaseName"))[0]["MAX(id)"];
 
-    if (maxId == null) {
-      maxId = 0;
-    }
+    maxId ??= 0;
 
     Map<String, dynamic> ingredientData = ingredient.toMap();
     ingredientData.putIfAbsent("id", () => maxId + 1);
@@ -244,7 +242,7 @@ class DatabaseManager {
   static Future<Meal> getMeal(int id) async {
     var list = await _database.query(_mealsDatabaseName, where: "id = $id");
 
-    if (list.length == 0) {
+    if (list.isEmpty) {
       return Meal();
     }
 
@@ -252,7 +250,7 @@ class DatabaseManager {
   }
 
   static Future<Map<Ingredient, double>> _getIngredientsOfMeal(List<Map<String, dynamic>> ids) async {
-    var ingredientsMap = Map<Ingredient, double>();
+    var ingredientsMap = <Ingredient, double>{};
     for (var i = 0; i < ids.length; i++) {
       ingredientsMap.putIfAbsent(await getIngredient(ids[i]["ingredient_id"]), () => ids[i]["amount"]);
     }
@@ -270,15 +268,17 @@ class DatabaseManager {
   static Future<Map<int, String>> getAllMealsNames() async {
     var list = await _database.query(_mealsDatabaseName, columns: ["id", "name"]);
 
-    var map = new Map<int, String>();
+    var map = <int, String>{};
 
-    list.forEach((e) => map.putIfAbsent(e["id"] as int, () => e["name"]));
+    for (var e in list) {
+      map.putIfAbsent(e["id"] as int, () => e["name"]);
+    }
 
     return map;
   }
 
   static Future<void> addNewMeal(Meal meal, Map<Ingredient, double> ingredients) async {
-    if (ingredients.length == 0) {
+    if (ingredients.isEmpty) {
       return;
     }
 
@@ -286,9 +286,7 @@ class DatabaseManager {
 
     maxId = (await _database.rawQuery("SELECT MAX(id) FROM $_mealsDatabaseName"))[0]["MAX(id)"];
 
-    if (maxId == null) {
-      maxId = 0;
-    }
+    maxId ??= 0;
 
     Map<String, dynamic> mealData = meal.toMap();
     mealData.putIfAbsent("id", () => maxId + 1);
@@ -328,7 +326,7 @@ class DatabaseManager {
   static Future<NutritionalValues> getMealNutritionalValues(int mealId) async {
     var ingredientsList = await _database.query(_ingredientsInMealsDatabaseName, where: "meal_id = $mealId");
 
-    NutritionalValues values = new NutritionalValues();
+    NutritionalValues values = NutritionalValues();
 
     for (int i = 0; i < ingredientsList.length; i++) {
       values += await getIngredientNutritionalValues(ingredientsList[i]["ingredient_id"]) * ingredientsList[i]["amount"];
@@ -337,12 +335,12 @@ class DatabaseManager {
   }
 
   static Future<NutritionalValues> getDayNutritionalValues(int dayId) async {
-    var mealsList = new List.empty(growable: true)
+    var mealsList = List.empty(growable: true)
       ..addAll(await _database.query(_firstMealInDayDatabaseName, where: "day_id = $dayId"))
       ..addAll(await _database.query(_secondMealInDayDatabaseName, where: "day_id = $dayId"))
       ..addAll(await _database.query(_thirdMealInDayDatabaseName, where: "day_id = $dayId"));
 
-    NutritionalValues values = new NutritionalValues();
+    NutritionalValues values = NutritionalValues();
 
     for (int i = 0; i < mealsList.length; i++) {
       values += await getMealNutritionalValues(mealsList[i]["meal_id"]) * mealsList[i]["amount"];

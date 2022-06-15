@@ -3,7 +3,7 @@ import 'package:kalories/systems/dataTypes/nutritionalValues.dart';
 import 'package:kalories/systems/dataTypes/settings.dart';
 
 class ProgressBar extends StatefulWidget {
-  ProgressBar(this.values, {Key key, this.title, this.unit, this.color, this.category}) : super(key: key);
+  const ProgressBar(this.values, {Key key, this.title, this.unit, this.color, this.category}) : super(key: key);
 
   final String title;
   final String unit;
@@ -23,16 +23,16 @@ class ProgressBarState extends State<ProgressBar> {
       return 0;
     }
     switch (widget.category) {
-      case NutritionalValuesCategory.Calories:
+      case NutritionalValuesCategory.calories:
         return Settings.current.caloriesTarget;
         break;
-      case NutritionalValuesCategory.Carbohydrates:
+      case NutritionalValuesCategory.carbohydrates:
         return Settings.current.carbohydrateTarget;
         break;
-      case NutritionalValuesCategory.Proteins:
+      case NutritionalValuesCategory.proteins:
         return Settings.current.proteinsTarget;
         break;
-      case NutritionalValuesCategory.Fats:
+      case NutritionalValuesCategory.fats:
         return Settings.current.fatsTarget;
         break;
       default:
@@ -46,16 +46,16 @@ class ProgressBarState extends State<ProgressBar> {
       return 0;
     }
     switch (widget.category) {
-      case NutritionalValuesCategory.Calories:
+      case NutritionalValuesCategory.calories:
         return values.calories;
         break;
-      case NutritionalValuesCategory.Carbohydrates:
+      case NutritionalValuesCategory.carbohydrates:
         return values.carbohydrates;
         break;
-      case NutritionalValuesCategory.Proteins:
+      case NutritionalValuesCategory.proteins:
         return values.proteins;
         break;
-      case NutritionalValuesCategory.Fats:
+      case NutritionalValuesCategory.fats:
         return values.fats;
         break;
       default:
@@ -71,15 +71,15 @@ class ProgressBarState extends State<ProgressBar> {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
+        margin: const EdgeInsetsDirectional.fromSTEB(5, 0, 5, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
+            SizedBox(
                 height: 5,
                 child: LinearProgressIndicator(
                   value: _getProgress(),
-                  backgroundColor: Color(0xFF222222),
+                  backgroundColor: const Color(0xFF222222),
                   valueColor: AlwaysStoppedAnimation<Color>(widget.color),
                 )),
             Row(
@@ -92,7 +92,7 @@ class ProgressBarState extends State<ProgressBar> {
                 ),
                 Text(
                   "${(_getValue()).toStringAsFixed(0)}/${_getMaxValue().toStringAsFixed(0)} ${widget.unit}",
-                  style: TextStyle(fontSize: 11.5, color: Color(0xFF999999)),
+                  style: const TextStyle(fontSize: 11.5, color: Color(0xFF999999)),
                 ),
               ],
             )

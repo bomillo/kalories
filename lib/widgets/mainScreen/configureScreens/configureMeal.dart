@@ -15,11 +15,13 @@ class ConfigureMealScreen extends StatelessWidget {
 
   static Function() callback;
 
+  ConfigureMealScreen({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           if (amount == null || amount == 0) {
             _goBack(context);
@@ -41,8 +43,8 @@ class ConfigureMealScreen extends StatelessWidget {
             children: [
               Expanded(
                   child: Container(
-                      padding: EdgeInsetsDirectional.only(start: 30.0),
-                      child: Text(
+                      padding: const EdgeInsetsDirectional.only(start: 30.0),
+                      child: const Text(
                         "Ustawienia",
                         textAlign: TextAlign.start,
                         style: TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
@@ -50,7 +52,7 @@ class ConfigureMealScreen extends StatelessWidget {
               IconButton(
                   icon: Icon(
                     Icons.arrow_back,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
                   iconSize: 35,
                   splashRadius: 20,

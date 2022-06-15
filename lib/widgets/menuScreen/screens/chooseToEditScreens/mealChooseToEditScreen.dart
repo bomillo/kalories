@@ -5,6 +5,8 @@ import 'package:kalories/widgets/common/listItem.dart';
 import 'package:kalories/widgets/common/selectScreen.dart';
 
 class MealChooseToEditScreen extends StatefulWidget {
+  const MealChooseToEditScreen({Key key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return MealChooseToEditState();
@@ -13,7 +15,7 @@ class MealChooseToEditScreen extends StatefulWidget {
 
 class MealChooseToEditState extends State<MealChooseToEditScreen> {
   bool loaded = false;
-  Map<int, String> allMeals = new Map<int, String>();
+  Map<int, String> allMeals = <int, String>{};
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +33,9 @@ class MealChooseToEditState extends State<MealChooseToEditScreen> {
         <Widget>[
           Container(
             height: 40,
-            margin: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+            margin: const EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
             child: Stack(children: [
-              Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.end, children: [
+              Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.end, children: const [
                 Text(
                   "Nazwa",
                   style: TextStyle(fontSize: 26, color: Color(0xff999999)),
@@ -54,13 +56,13 @@ class MealChooseToEditState extends State<MealChooseToEditScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                            margin: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
+                            margin: const EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
                             child: Text(
-                              "${e.value}",
-                              style: TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
+                              e.value,
+                              style: const TextStyle(fontSize: 30, color: Color(0xFFFFFFFF)),
                             )),
                         TextButton(
-                          child: Icon(Icons.edit, color: Theme.of(context).accentColor, size: 40),
+                          child: Icon(Icons.edit, color: Theme.of(context).colorScheme.secondary, size: 40),
                           onPressed: () => _goToEditMeal(context, e.key),
                         ),
                       ],

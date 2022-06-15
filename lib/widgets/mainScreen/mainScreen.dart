@@ -8,10 +8,11 @@ import 'package:kalories/widgets/mainScreen/mealList.dart';
 import 'package:kalories/widgets/mainScreen/waterAndPracticeButtons.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({Key key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
-    MainScreenState();
-    return MainScreenState.main;
+    return MainScreenState();
   }
 }
 
@@ -22,7 +23,7 @@ class MainScreenState extends State<MainScreen> {
   MainScreenState() : super() {
     main = this;
     currentlyEditedDay = Day.getIdFor(DateTime.now());
-    day = new Day(main.currentlyEditedDay, 0, false);
+    day = Day(main.currentlyEditedDay, 0, false);
   }
 
   void update() {
@@ -41,7 +42,7 @@ class MainScreenState extends State<MainScreen> {
 
   bool loaded = false;
   Day day; // = new Day(main.currentlyEditedDay, 0, false);
-  NutritionalValues values = new NutritionalValues();
+  NutritionalValues values = NutritionalValues();
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          Positioned(
+          const Positioned(
             top: 0,
             height: 100,
             left: 0,
@@ -96,22 +97,16 @@ class MainScreenState extends State<MainScreen> {
                   Expanded(
                       child: Column(
                     children: [
-                      ProgressBar(values,
-                          title: "KALORIE", unit: "kcal", category: NutritionalValuesCategory.Calories, color: Color(0xFFf5d41d)),
-                      ProgressBar(values,
-                          title: "BIAŁKA", unit: "gram", category: NutritionalValuesCategory.Proteins, color: Color(0xFFf7f7f7)),
+                      ProgressBar(values, title: "KALORIE", unit: "kcal", category: NutritionalValuesCategory.calories, color: const Color(0xFFf5d41d)),
+                      ProgressBar(values, title: "BIAŁKA", unit: "gram", category: NutritionalValuesCategory.proteins, color: const Color(0xFFf7f7f7)),
                     ],
                   )),
                   Expanded(
                       child: Column(
                     children: [
                       ProgressBar(values,
-                          title: "WĘGLOWODANY",
-                          unit: "gram",
-                          category: NutritionalValuesCategory.Carbohydrates,
-                          color: Color(0xFF34c943)),
-                      ProgressBar(values,
-                          title: "TŁUSZCZE", unit: "gram", category: NutritionalValuesCategory.Fats, color: Color(0xFFed4f24)),
+                          title: "WĘGLOWODANY", unit: "gram", category: NutritionalValuesCategory.carbohydrates, color: const Color(0xFF34c943)),
+                      ProgressBar(values, title: "TŁUSZCZE", unit: "gram", category: NutritionalValuesCategory.fats, color: const Color(0xFFed4f24)),
                     ],
                   ))
                 ],

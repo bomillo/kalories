@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kalories/widgets/MainScreen/datePicker.dart';
 
 class TopBar extends StatelessWidget {
-  TopBar({Key key}) : super(key: key);
+  const TopBar({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -10,26 +10,26 @@ class TopBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           height: 50,
           width: 50,
           child: IconButton(
               icon: Icon(
                 Icons.settings_rounded,
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
               ),
               iconSize: 35,
               splashRadius: 40,
               onPressed: () => _goToSettings(context)),
         ),
-        DatePicker(),
-        Container(
+        const DatePicker(),
+        SizedBox(
           height: 50,
           width: 50,
           child: IconButton(
               icon: Icon(
                 Icons.add,
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
               ),
               iconSize: 35,
               splashRadius: 20,
